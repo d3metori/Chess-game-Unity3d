@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class figure : MonoBehaviour {
+public class figure
+{
+    public int[] position;  // позиция данной фигуры где [1] - x(строка)   [2] - z(столбец)
+    public bool color;  //true - white. black - false
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
