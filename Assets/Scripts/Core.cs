@@ -8,45 +8,15 @@ public class Core : MonoBehaviour {
 
     void Awake()    // при создании кадра происходит до Start 
     {
-        GenerateTable();
+        filing_table();
     }
 
-    void GenerateTable()    // генерируем доску
+    void filing_table()    // заполняем доску
     {
-        for (int z = 0; z < 8; z++){
-            for(int x=0; x < 8; x++){
-
-                if (z % 2 == 0) //четное
-                {
-                    if (x % 2 == 0) //четное
-                    {
-                        Instantiate(cell, new Vector3(x, 0, z), Quaternion.identity);
-                        cell.GetComponent<square>().colors = 1;
-                     
-
-                    }
-                    else    // если x не четный
-                    {
-                        Instantiate(cell, new Vector3(x, 0, z), Quaternion.identity);
-                        cell.GetComponent<square>().colors = 0;
-
-                    }
-
-                }
-                else    //если z не четный
-                {
-
-
-                }
-            }
-        }
-
+        figure fiq = new figure();
 
     }
 
-	void Start () {
-
-        Debug.Log(4%3);
-	}
-	
+       
+    }
 }
