@@ -45,14 +45,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Game_manager.cs" />
+     <Compile Include="Assets\Scripts\Core.cs" />
      <Compile Include="Assets\Scripts\Main_menu.cs" />
      <Compile Include="Assets\Scripts\Rotate_Around_Scene.cs" />
      <Compile Include="Assets\Scripts\figure.cs" />
-     <Compile Include="Assets\Scripts\figures\All_figures.cs" />
-     <Compile Include="Assets\Scripts\figures\Collision.cs" />
-     <Compile Include="Assets\Scripts\figures\figures_instantiate.cs" />
-     <Compile Include="Assets\Scripts\figures\grid.cs" />
      <Compile Include="Assets\Scripts\square.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
@@ -130,11 +126,17 @@
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset2.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>E:/unity5.2/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/unity5.2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>E:/unity5.2/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>E:/unity5.2/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>E:/unity5.2/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
