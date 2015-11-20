@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Core : MonoBehaviour {
 
-    private int State = 0; // 0,1,2  0 - ход белых, 1 - ход черных, 2 - игра стоит на паузе(в режиме ожидания) 
+    public int State = 0; // 0,1  0 - ход белых, 1 - ход черных
     public GameObject cell;
     public square [,] board = new square[8,8]; // доска
 
@@ -97,8 +97,9 @@ public class Core : MonoBehaviour {
 
     void Start()
     {
-       
 
+        board[0, 0].SelectFigure(2, 0, 0, 0);
+        Debug.Log(board[0, 0].white_rooks[0].active);
         
 
     }
