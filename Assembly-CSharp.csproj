@@ -52,10 +52,10 @@
      <Compile Include="Assets\Scripts\figure.cs" />
      <Compile Include="Assets\Scripts\king.cs" />
      <Compile Include="Assets\Scripts\knight.cs" />
+     <Compile Include="Assets\Scripts\move.cs" />
      <Compile Include="Assets\Scripts\pawn.cs" />
      <Compile Include="Assets\Scripts\queen.cs" />
      <Compile Include="Assets\Scripts\rook.cs" />
-     <Compile Include="Assets\Scripts\square.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
