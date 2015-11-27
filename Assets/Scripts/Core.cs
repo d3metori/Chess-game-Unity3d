@@ -6,7 +6,11 @@ public class Core : MonoBehaviour {
     public int State = 0; // 0,1  0 - ход белых, 1 - ход черных
     public bool  move_updated = false; //для визуального обновления всех фигур
         public bool first_time_updated = false; // вспомогательная переменная для move_updated
-    public figure [,] board = new figure[8,8]; // доска
+    public figure[,] board = new figure[8,8]; // доска
+    public figure buffer;   // вспомогательный буффер
+
+    public GameObject[] del;
+    public GameObject for_deleting_figure;
 
     public GameObject cell;     // набор обьектов для дальнейшей их визуализации
     public Renderer for_cell;   // renderer для смены материала на 'cell'е 
@@ -39,9 +43,9 @@ public class Core : MonoBehaviour {
         {
             for (int j = 0; j < 8; j++)
             {
-                figure fn = new figure();
-                fn.empty = true;
-                board[i, j] = fn;
+                empty emp = new empty();
+                emp.figure_name = emp.name;
+                board[i, j] = emp;
 
             }
         }
@@ -131,12 +135,21 @@ public class Core : MonoBehaviour {
 
     void Start()    
     {
-        UpdateFigures(false);
+        
+        UpdateFigures();
     }
 
     void Update() 
     {
-       
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            
+           DeleteFigures();
+           UpdateFigures();
+
+        }
+      
     }
 
     void LateUpdate() 
@@ -144,169 +157,176 @@ public class Core : MonoBehaviour {
        
     }
 
-    void UpdateFigures(bool upd)    // Визуальная часть (сделано), 
+    void UpdateFigures()    // Визуальная часть (сделано), 
     //после каждого хода вызываем для обновления отображения фигур
     {
-        move_updated = upd;
+        
 
-        if (!move_updated)
-        {
-            if (!first_time_updated)    // если мы в первый раз начинаем игру то генерируем саму доску
+
+            for (int z = 0; z < 8; z++)
             {
-
-                for (int j = 0; j < 8; j++)
+                for (int x = 0; x < 8; x++)
                 {
-                    for (int i = 0; i < 8; i++)
+                    if (z == 0 || z == 2 || z == 4 || z == 6)
                     {
-                        if (j == 0 || j == 2 || j == 4 || j == 6)
+                        if (black)
                         {
-                            if (black)
-                            {
-                                for_cell.material = black_mat;
-                                black = false;
-                            }
-                            else
-                            {
-                                for_cell.material = white_mat;
-                                black = true;
-                            }
-                             
-                        }else{
-
-                            if (black)
-                            {
-                                for_cell.material = white_mat;
-                                black = false;
-
-                            }else{
-
-                                for_cell.material = black_mat;
-                                black = true;
-                            }
-
+                            for_cell.material = black_mat;
+                            black = false;
+                        }
+                        else
+                        {
+                            for_cell.material = white_mat;
+                            black = true;
                         }
 
-                            Instantiate(cell, new Vector3(i, 0, j), Quaternion.identity);
                     }
-                }
+                    else
+                    {
 
-                first_time_updated = true;
+                        if (black)
+                        {
+                            for_cell.material = white_mat;
+                            black = false;
 
-            }   // конец генерациии доски
-
-            // начало появления фигур
-
-            for (int z = 0; z < 8; z++) // строка
-            {
-                for (int x = 0; x < 8; x++) // столбец
-                {
-                    if(!board[z,x ].empty){
-
-                        if (board[z, x].figure_name == "pawn")
+                        }
+                        else
                         {
 
-                            if (board[z, x].colors_of_figure == 1)
-                            {
-                                pawn_r.material = black_mat;
-                            }
-                            else
-                            {
-                                pawn_r.material = white_mat;
-                            }
-
-                            Instantiate(pawn, new Vector3(x, 0, z), transform.rotation);
+                            for_cell.material = black_mat;
+                            black = true;
                         }
 
-                        if (board[z, x].figure_name == "knight")
+                    }
+
+
+                    Instantiate(cell, new Vector3(x, 0, z), Quaternion.identity);
+
+
+                    if (board[z, x].figure_name == "empty")
+                    {
+
+
+
+                    }
+
+                    if (board[z, x].figure_name == "pawn")
+                    {
+
+                        if (board[z, x].colors_of_figure == 1)
                         {
-
-                            if (board[z, x].colors_of_figure == 1)
-                            {
-                                knight_r.material = black_mat;
-                            }
-                            else
-                            {
-                                knight_r.material = white_mat;
-                            }
-
-                            Instantiate(knight, new Vector3(x, 0, z), transform.rotation);
+                            pawn_r.material = black_mat;
                         }
-
-                        if (board[z, x].figure_name == "bishop")
+                        else
                         {
-
-                            if (board[z, x].colors_of_figure == 1)
-                            {
-                                bishop_r.material = black_mat;
-                            }
-                            else
-                            {
-                                bishop_r.material = white_mat;
-                            }
-
-                            Instantiate(bishop, new Vector3(x, 0, z), transform.rotation);
+                            pawn_r.material = white_mat;
                         }
 
-                        if (board[z, x].figure_name == "rook")
+                        Instantiate(pawn, new Vector3(x, 0, z), transform.rotation);
+                        pawn.tag = "Figure";
+                    }
+
+                    if (board[z, x].figure_name == "knight")
+                    {
+
+                        if (board[z, x].colors_of_figure == 1)
                         {
-
-                            if (board[z, x].colors_of_figure == 1)
-                            {
-                                rook_r.material = black_mat;
-                            }
-                            else
-                            {
-                                rook_r.material = white_mat;
-                            }
-
-                            Instantiate(rook, new Vector3(x, 0, z), transform.rotation);
+                            knight_r.material = black_mat;
                         }
-
-                        if (board[z, x].figure_name == "queen")
+                        else
                         {
-
-                            if (board[z, x].colors_of_figure == 1)
-                            {
-                                queen_r.material = black_mat;
-                            }
-                            else
-                            {
-                                queen_r.material = white_mat;
-                            }
-
-                            Instantiate(queen, new Vector3(x, 0, z), transform.rotation);
+                            knight_r.material = white_mat;
                         }
 
-                        if (board[z, x].figure_name == "king")
+                        Instantiate(knight, new Vector3(x, 0, z), transform.rotation);
+                        knight.tag = "Figure";
+                    }
+
+                    if (board[z, x].figure_name == "bishop")
+                    {
+
+                        if (board[z, x].colors_of_figure == 1)
                         {
-
-                            if (board[z, x].colors_of_figure == 1)
-                            {
-                                king_r.material = black_mat;
-                            }
-                            else
-                            {
-                                king_r.material = white_mat;
-                            }
-
-                            Instantiate(king, new Vector3(x, 0, z), transform.rotation);
+                            bishop_r.material = black_mat;
                         }
-   
+                        else
+                        {
+                            bishop_r.material = white_mat;
+                        }
+
+                        Instantiate(bishop, new Vector3(x, 0, z), transform.rotation);
+                        bishop.tag = "Figure";
+                    }
+
+                    if (board[z, x].figure_name == "rook")
+                    {
+
+                        if (board[z, x].colors_of_figure == 1)
+                        {
+                            rook_r.material = black_mat;
+                        }
+                        else
+                        {
+                            rook_r.material = white_mat;
+                        }
+
+                        Instantiate(rook, new Vector3(x, 0, z), transform.rotation);
+                        rook.tag = "Figure";
+                    }
+
+                    if (board[z, x].figure_name == "queen")
+                    {
+
+                        if (board[z, x].colors_of_figure == 1)
+                        {
+                            queen_r.material = black_mat;
+                        }
+                        else
+                        {
+                            queen_r.material = white_mat;
+                        }
+
+                        Instantiate(queen, new Vector3(x, 0, z), transform.rotation);
+                        queen.tag = "Figure";
+                    }
+
+                    if (board[z, x].figure_name == "king")
+                    {
+
+                        if (board[z, x].colors_of_figure == 1)
+                        {
+                            king_r.material = black_mat;
+                        }
+                        else
+                        {
+                            king_r.material = white_mat;
+                        }
+
+                        Instantiate(king, new Vector3(x, 0, z), transform.rotation);
+                        king.tag = "Figure";
                     }
                 }
             }
-
-
-                move_updated = true;
-
-        }
-    }
-    
-
-    void ReversingTable() { 
-    
     }
 
+    void DeleteFigures()
+    {
+      del = GameObject.FindGameObjectsWithTag("Figure");
+      for (int i = 0; i < del.Length; i++)
+      {
+          Destroy(del[i]);
+      }
+      
+
+    }
+
+    public void MoveFigure(figure active_figure, int x, int y)
+    {
+
+
+
+    }
+   
     void Checking_For_Possible_Moves(int number_of_figure, int x, int z)
     {
         
