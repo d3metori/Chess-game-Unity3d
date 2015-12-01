@@ -1,130 +1,61 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class bishop : figure
 {  // слон
 
     public string name = "bishop";
-    public move[] P_Moves = new move[63];   // возможные шаги фигуры 
 
+    public List<move> P_Moves_LeftUp = new List<move>();    // массивы для направлений
+    public List<move> P_Moves_RightUp = new List<move>();
+    public List<move> P_Moves_LeftDown = new List<move>();
+    public List<move> P_Moves_RightDown = new List<move>();
 
-    public void PossibleMoves(int x, int z) //   28 возможных ходов
+    public void PossibleMoves(int z, int x) //   28 возможных ходов
     {
-        move mv = new move();   
-        mv.x = x + 1;       // право-верх направление
-        mv.z = z + 1;
-        P_Moves[0] = mv;
+        for (int i = 1; i < 8; i++)    // Вправо+Вверх
+        {
+            move mv = new move();
+            mv.x = x + i;
+            mv.z = z + i;
+            if (x >= 0 & x < 8 & z >= 0 & z < 8)    // строчка для ограничения хода в границах 8x8 
+            {
+                P_Moves_RightUp.Add(mv);
+            }
+        }
 
-        mv.x = x + 2;
-        mv.z = z + 2;
-        P_Moves[1] = mv;
+        for (int i = 1; i < 8; i++)    // Вправо+Вниз
+        {
+            move mv = new move();
+            mv.x = x + i;
+            mv.z = z - i;
+            if (x >= 0 & x < 8 & z >= 0 & z < 8)    // строчка для ограничения хода в границах 8x8 
+            {
+                P_Moves_RightDown.Add(mv);
+            }
+        }
 
-        mv.x = x + 3;
-        mv.z = z + 3;
-        P_Moves[2] = mv;
+        for (int i = 1; i < 8; i++)    // Влево+Вниз
+        {
+            move mv = new move();
+            mv.x = x - i;
+            mv.z = z - i;
+            if (x >= 0 & x < 8 & z >= 0 & z < 8)    // строчка для ограничения хода в границах 8x8 
+            {
+                P_Moves_LeftDown.Add(mv);
+            }
+        }
 
-        mv.x = x + 4;
-        mv.z = z + 4;
-        P_Moves[3] = mv;
-
-        mv.x = x + 5;
-        mv.z = z + 5;
-        P_Moves[4] = mv;
-
-        mv.x = x + 6;
-        mv.z = z + 6;
-        P_Moves[5] = mv;
-
-        mv.x = x + 7;
-        mv.z = z + 7;
-        P_Moves[6] = mv;
-
-
-        mv.x = x - 1;   // вниз-влево направление
-        mv.z = z - 1;
-        P_Moves[7] = mv;
-
-        mv.x = x - 2;
-        mv.z = z - 2;
-        P_Moves[8] = mv;
-
-        mv.x = x - 3;
-        mv.z = z - 3;
-        P_Moves[9] = mv;
-
-        mv.x = x - 4;
-        mv.z = z - 4;
-        P_Moves[10] = mv;
-
-        mv.x = x - 5;
-        mv.z = z - 5;
-        P_Moves[11] = mv;
-
-        mv.x = x - 6;
-        mv.z = z - 6;
-        P_Moves[12] = mv;
-
-        mv.x = x - 7;
-        mv.z = z - 7;
-        P_Moves[13] = mv;
-
-
-        mv.x = x - 1;   // лево-вверх
-        mv.z = z + 1;
-        P_Moves[14] = mv;
-
-        mv.x = x - 2;
-        mv.z = z + 2;
-        P_Moves[15] = mv;
-
-        mv.x = x - 3;
-        mv.z = z + 3;
-        P_Moves[16] = mv;
-
-        mv.x = x - 4;
-        mv.z = z + 4;
-        P_Moves[17] = mv;
-
-        mv.x = x - 5;
-        mv.z = z + 5;
-        P_Moves[18] = mv;
-
-        mv.x = x - 6;
-        mv.z = z + 6;
-        P_Moves[19] = mv;
-
-        mv.x = x - 7;
-        mv.z = z + 7;
-        P_Moves[20] = mv;
-
-
-        mv.x = x + 1;   //вправо-вниз
-        mv.z = z - 1;
-        P_Moves[21] = mv;
-
-        mv.x = x + 2;
-        mv.z = z - 2;
-        P_Moves[22] = mv;
-
-        mv.x = x + 3;
-        mv.z = z - 3;
-        P_Moves[23] = mv;
-
-        mv.x = x + 4;
-        mv.z = z - 4;
-        P_Moves[24] = mv;
-
-        mv.x = x + 5;
-        mv.z = z - 5;
-        P_Moves[25] = mv;
-
-        mv.x = x + 6;
-        mv.z = z - 6;
-        P_Moves[26] = mv;
-
-        mv.x = x + 7;
-        mv.z = z - 7;
-        P_Moves[27] = mv;
-        
+        for (int i = 1; i < 8; i++)    // Влево+Вверх
+        {
+            move mv = new move();
+            mv.x = x - i;
+            mv.z = z + i;
+            if (x >= 0 & x < 8 & z >= 0 & z < 8)    // строчка для ограничения хода в границах 8x8 
+            {
+                P_Moves_LeftUp.Add(mv);
+            }
+        }
     }
 }

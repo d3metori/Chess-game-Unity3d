@@ -1,32 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Core : MonoBehaviour {
+public class Core : MonoBehaviour
+{
 
     public int State = 0; // 0,1  0 - ход белых, 1 - ход черных
-    public bool  move_updated = false; //для визуального обновления всех фигур
-        public bool first_time_updated = false; // вспомогательная переменная для move_updated
-    public figure[,] board = new figure[8,8]; // доска
+    public bool move_updated = false; //для визуального обновления всех фигур
+    public bool first_time_updated = false; // вспомогательная переменная для move_updated
+    public figure[,] board = new figure[8, 8]; // доска
     public figure buffer;   // вспомогательный буффер
 
     public GameObject[] del;
     public GameObject for_deleting_figure;
 
+    public bool FirstActiveted = false; // активирована ли первая фигура
+
+
     public GameObject cell;     // набор обьектов для дальнейшей их визуализации
     public Renderer for_cell;   // renderer для смены материала на 'cell'е 
-        private bool black = true; // вспомогательная переменная для cell
+    private bool black = true; // вспомогательная переменная для cell
     public GameObject pawn;
-        public Renderer pawn_r;
+    public Renderer pawn_r;
     public GameObject knight;
-        public Renderer knight_r;
+    public Renderer knight_r;
     public GameObject bishop;
-        public Renderer bishop_r;
+    public Renderer bishop_r;
     public GameObject rook;
-        public Renderer rook_r;
+    public Renderer rook_r;
     public GameObject queen;
-        public Renderer queen_r;
+    public Renderer queen_r;
     public GameObject king;
-        public Renderer king_r;
+    public Renderer king_r;
+    public GameObject empty_obj;
+    public Renderer empty_r;
+
+    public int z;    // позиции активированных фигур
+    public int x;
+
+    public int second_z;
+    public int second_x;
+
 
     public Material white_mat;  // белый материал
     public Material black_mat;  // черный материал
@@ -55,6 +69,7 @@ public class Core : MonoBehaviour {
             pawn pn = new pawn();
             pn.colors_of_figure = 0;
             pn.figure_name = pn.name;
+            pn.direction = false;
             board[1, i] = pn;
         }
 
@@ -62,17 +77,17 @@ public class Core : MonoBehaviour {
         rook rk = new rook();
         rk.colors_of_figure = 0;    // белые ладьи
         rk.figure_name = rk.name;
-            board[0, 0] = rk;
-            board[0, 7] = rk;
-        
+        board[0, 0] = rk;
+        board[0, 7] = rk;
+
 
         rook rk_black = new rook();
         rk_black.colors_of_figure = 1;    // чёрные ладьи
         rk_black.figure_name = rk_black.name;
-            board[7, 0] = rk_black;
-            board[7, 7] = rk_black;
+        board[7, 0] = rk_black;
+        board[7, 7] = rk_black;
 
-       
+
 
         knight kn = new knight();
         kn.colors_of_figure = 0;    // белые кони
@@ -86,7 +101,7 @@ public class Core : MonoBehaviour {
         board[7, 1] = kn_black;
         board[7, 6] = kn_black;
 
-       
+
 
         bishop bs = new bishop();
         bs.colors_of_figure = 0;    // белые слоны
@@ -108,7 +123,7 @@ public class Core : MonoBehaviour {
         queen q_black = new queen();     // черная королева
         q_black.colors_of_figure = 1;
         q_black.figure_name = q_black.name;
-        board[7, 3] = q_black;           
+        board[7, 3] = q_black;
 
         king kg = new king();
         kg.colors_of_figure = 0;    // белый король
@@ -126,244 +141,583 @@ public class Core : MonoBehaviour {
             pawn pn = new pawn();
             pn.colors_of_figure = 1;
             pn.figure_name = pn.name;
+            pn.direction = true;
             board[6, i] = pn;
         }
 
-       
-        
+
+
     }
 
-    void Start()    
+    void Start()
     {
-        
+
         UpdateFigures();
     }
 
-    void Update() 
+    void Update()
     {
-
         if (Input.GetKeyUp(KeyCode.A))
         {
-            
-           DeleteFigures();
-           UpdateFigures();
-
+           // DebuggingStats(1, 7);
+            DebuggingStats(z, x);
         }
-      
+
+        
     }
 
-    void LateUpdate() 
+    void LateUpdate()
     {
-       
+
     }
 
     void UpdateFigures()    // Визуальная часть (сделано), 
     //после каждого хода вызываем для обновления отображения фигур
     {
-        
 
 
-            for (int z = 0; z < 8; z++)
+
+        for (int z = 0; z < 8; z++)
+        {
+            for (int x = 0; x < 8; x++)
             {
-                for (int x = 0; x < 8; x++)
+                if (z == 0 || z == 2 || z == 4 || z == 6)
                 {
-                    if (z == 0 || z == 2 || z == 4 || z == 6)
+                    if (black)
                     {
-                        if (black)
-                        {
-                            for_cell.material = black_mat;
-                            black = false;
-                        }
-                        else
-                        {
-                            for_cell.material = white_mat;
-                            black = true;
-                        }
+                        for_cell.material = black_mat;
+                        black = false;
+                    }
+                    else
+                    {
+                        for_cell.material = white_mat;
+                        black = true;
+                    }
+
+                }
+                else
+                {
+
+                    if (black)
+                    {
+                        for_cell.material = white_mat;
+                        black = false;
 
                     }
                     else
                     {
 
-                        if (black)
-                        {
-                            for_cell.material = white_mat;
-                            black = false;
-
-                        }
-                        else
-                        {
-
-                            for_cell.material = black_mat;
-                            black = true;
-                        }
-
+                        for_cell.material = black_mat;
+                        black = true;
                     }
 
+                }
 
-                    Instantiate(cell, new Vector3(x, 0, z), Quaternion.identity);
+
+                Instantiate(cell, new Vector3(x, 0, z), Quaternion.identity);
 
 
-                    if (board[z, x].figure_name == "empty")
+                if (board[z, x].figure_name == "empty")
+                {
+
+                    Instantiate(empty_obj, new Vector3(x, 0, z), transform.rotation);
+
+
+                }
+
+                if (board[z, x].figure_name == "pawn")
+                {
+
+                    if (board[z, x].colors_of_figure == 1)
                     {
-
-
-
+                        pawn_r.material = black_mat;
                     }
-
-                    if (board[z, x].figure_name == "pawn")
+                    else
                     {
-
-                        if (board[z, x].colors_of_figure == 1)
-                        {
-                            pawn_r.material = black_mat;
-                        }
-                        else
-                        {
-                            pawn_r.material = white_mat;
-                        }
-
-                        Instantiate(pawn, new Vector3(x, 0, z), transform.rotation);
-                        pawn.tag = "Figure";
+                        pawn_r.material = white_mat;
                     }
+                    
+                    Instantiate(pawn, new Vector3(x, 0, z), transform.rotation);
+                    pawn.tag = "Figure";
+                }
 
-                    if (board[z, x].figure_name == "knight")
+                if (board[z, x].figure_name == "knight")
+                {
+
+                    if (board[z, x].colors_of_figure == 1)
                     {
-
-                        if (board[z, x].colors_of_figure == 1)
-                        {
-                            knight_r.material = black_mat;
-                        }
-                        else
-                        {
-                            knight_r.material = white_mat;
-                        }
-
-                        Instantiate(knight, new Vector3(x, 0, z), transform.rotation);
-                        knight.tag = "Figure";
+                        knight_r.material = black_mat;
                     }
-
-                    if (board[z, x].figure_name == "bishop")
+                    else
                     {
-
-                        if (board[z, x].colors_of_figure == 1)
-                        {
-                            bishop_r.material = black_mat;
-                        }
-                        else
-                        {
-                            bishop_r.material = white_mat;
-                        }
-
-                        Instantiate(bishop, new Vector3(x, 0, z), transform.rotation);
-                        bishop.tag = "Figure";
+                        knight_r.material = white_mat;
                     }
 
-                    if (board[z, x].figure_name == "rook")
+                    Instantiate(knight, new Vector3(x, 0, z), transform.rotation);
+                    knight.tag = "Figure";
+                }
+
+                if (board[z, x].figure_name == "bishop")
+                {
+
+                    if (board[z, x].colors_of_figure == 1)
                     {
-
-                        if (board[z, x].colors_of_figure == 1)
-                        {
-                            rook_r.material = black_mat;
-                        }
-                        else
-                        {
-                            rook_r.material = white_mat;
-                        }
-
-                        Instantiate(rook, new Vector3(x, 0, z), transform.rotation);
-                        rook.tag = "Figure";
+                        bishop_r.material = black_mat;
                     }
-
-                    if (board[z, x].figure_name == "queen")
+                    else
                     {
-
-                        if (board[z, x].colors_of_figure == 1)
-                        {
-                            queen_r.material = black_mat;
-                        }
-                        else
-                        {
-                            queen_r.material = white_mat;
-                        }
-
-                        Instantiate(queen, new Vector3(x, 0, z), transform.rotation);
-                        queen.tag = "Figure";
+                        bishop_r.material = white_mat;
                     }
 
-                    if (board[z, x].figure_name == "king")
+                    Instantiate(bishop, new Vector3(x, 0, z), transform.rotation);
+                    bishop.tag = "Figure";
+                }
+
+                if (board[z, x].figure_name == "rook")
+                {
+
+                    if (board[z, x].colors_of_figure == 1)
                     {
-
-                        if (board[z, x].colors_of_figure == 1)
-                        {
-                            king_r.material = black_mat;
-                        }
-                        else
-                        {
-                            king_r.material = white_mat;
-                        }
-
-                        Instantiate(king, new Vector3(x, 0, z), transform.rotation);
-                        king.tag = "Figure";
+                        rook_r.material = black_mat;
                     }
+                    else
+                    {
+                        rook_r.material = white_mat;
+                    }
+
+                    Instantiate(rook, new Vector3(x, 0, z), transform.rotation);
+                    rook.tag = "Figure";
+                }
+
+                if (board[z, x].figure_name == "queen")
+                {
+
+                    if (board[z, x].colors_of_figure == 1)
+                    {
+                        queen_r.material = black_mat;
+                    }
+                    else
+                    {
+                        queen_r.material = white_mat;
+                    }
+
+                    Instantiate(queen, new Vector3(x, 0, z), transform.rotation);
+                    queen.tag = "Figure";
+                }
+
+                if (board[z, x].figure_name == "king")
+                {
+
+                    if (board[z, x].colors_of_figure == 1)
+                    {
+                        king_r.material = black_mat;
+                    }
+                    else
+                    {
+                        king_r.material = white_mat;
+                    }
+
+                    Instantiate(king, new Vector3(x, 0, z), transform.rotation);
+                    king.tag = "Figure";
                 }
             }
+        }
     }
 
-    void DeleteFigures()
+    void DeleteFigures()    // Удаление фигур
     {
-      del = GameObject.FindGameObjectsWithTag("Figure");
-      for (int i = 0; i < del.Length; i++)
-      {
-          Destroy(del[i]);
-      }
-      
-
+        del = GameObject.FindGameObjectsWithTag("Figure");
+        for (int i = 0; i < del.Length; i++)
+        {
+            Destroy(del[i]);
+        }
     }
 
-    public void MoveFigure(figure active_figure, int x, int y)
+    public void MoveFigure()    // двигает 2 текущие активные фигуры
     {
 
+        if (board[second_z, second_x].figure_name == "empty")    // просто двигаем
+        {
+            buffer = board[z, x];
+            board[z, x] = board[second_z, second_x];
+            board[second_z, second_x] = buffer;
 
-
-    }
-   
-    void Checking_For_Possible_Moves(int number_of_figure, int x, int z)
-    {
-        
-            switch (number_of_figure)
-            {
-                case 0: // клетка пуста
-                   
-                    break;
-
-                case 1: // пешка (pawn)
-                  
-
-                        break;
-
-                case 2: // ладья (rook)
-                       
-                    break;
-
-                case 3: //  конь (knight)
-                   
-                    break;
-                case 4: //  слон (bishop)
-                    
-                    break;
-
-                case 5: //  королева (queen)
-                   
-
-                    break;
-
-                case 6: //  король (king)
-                   
-
-                    break;
+            Debug.Log("moved");
 
         }
 
+        DeleteFigures();
+        UpdateFigures();
+
+        Debug.Log(board[z, x].figure_name);
+        Debug.Log(board[second_z, second_x].figure_name);
+
+        board[z, x].isSecondActive = false;
+        board[z, x].active = false;
+
+        board[second_z, second_x].isSecondActive = false;
+        board[second_z, second_x].active = false;
+
+    }
+
+    public void AttackFigure()
+    {
+        empty empt = new empty();
+        board[second_z, second_x] = empt;
+        MoveFigure();
+
+
+    }
+
+    public void isMoveCanBe(string name, int color)   //z and x откуда стартуем
+    {
+        Debug.Log("isMoveCanBe");
+        Debug.Log(name);
+        if (name == "pawn")
+        {
+            Debug.Log("nameCorrect");
+            if (color == 0)
+            {
+                Debug.Log("colorCorrect");
+                pawn pn = new pawn();
+                if (board[z, x].first_move == false)
+                {
+                    pn.first_move = false;
+                }
+
+                pn.PossibleMoves(z, x);
+
+                for (int i = 0; i < pn.P_Moves.Count; i++)
+                {
+                    if (pn.P_Moves[i].z == second_z & pn.P_Moves[i].x == second_x)
+                    {
+                        board[z, x].first_move = false;
+                        Debug.Log("ITS WOOOOORKINg FUCK YEAH!");
+                        MoveFigure();
+                    }
+
+                }
+            }
+            else // color == 1
+            {
+                pawn pn = new pawn();
+                pn.PossibleMoves(z, x);
+                Debug.Log("Trying_to_attack");
+                for (int i = 0; i < pn.Attack_Moves.Count; i++)
+                {
+                    if (pn.Attack_Moves[i].z == second_z & pn.Attack_Moves[i].x == second_x)
+                    {
+                      
+                        Debug.Log("Attack!");
+                        AttackFigure();
+                    }
+
+                }
+                
+
+            }
+        }
+
+        //  queen
+
+        if (name == "queen")
+        {
+            Debug.Log("nameCorrect");
+            if (color == 0)
+            {
+                Debug.Log("colorCorrect");
+                queen q = new queen();
+
+                q.PossibleMoves(z, x);
+
+                for (int i = 0; i < q.P_Moves_Up.Count; i++)
+                {
+                    if (q.P_Moves_Up[i].z == second_z & q.P_Moves_Up[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+                for (int i = 0; i < q.P_Moves_Down.Count; i++)
+                {
+                    if (q.P_Moves_Down[i].z == second_z & q.P_Moves_Down[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+                for (int i = 0; i < q.P_Moves_Left.Count; i++)
+                {
+                    if (q.P_Moves_Left[i].z == second_z & q.P_Moves_Left[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+                for (int i = 0; i < q.P_Moves_Right.Count; i++)
+                {
+
+                    if (q.P_Moves_Right[i].z == second_z & q.P_Moves_Right[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+                for (int i = 0; i < q.P_Moves_LeftUp.Count; i++)
+                {
+                    if (q.P_Moves_LeftUp[i].z == second_z & q.P_Moves_LeftUp[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+                for (int i = 0; i < q.P_Moves_RightUp.Count; i++)
+                {
+                    if (q.P_Moves_RightUp[i].z == second_z & q.P_Moves_RightUp[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+
+                for (int i = 0; i < q.P_Moves_RightDown.Count; i++)
+                {
+                    if (q.P_Moves_RightDown[i].z == second_z & q.P_Moves_RightDown[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+                for (int i = 0; i < q.P_Moves_LeftDown.Count; i++)
+                {
+                    if (q.P_Moves_LeftDown[i].z == second_z & q.P_Moves_LeftDown[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+            }
+        }
+
+        if (name == "king")
+        {
+            Debug.Log("nameCorrect");
+            if (color == 0)
+            {
+                Debug.Log("colorCorrect");
+                king k = new king();
+
+                k.PossibleMoves(z, x);
+
+                for (int i = 0; i < k.P_Moves.Count; i++)
+                {
+
+                    Debug.Log("Moves");
+                    Debug.Log(k.P_Moves[i].z);
+                    Debug.Log(k.P_Moves[i].x);
+
+
+                    if (k.P_Moves[i].z == second_z & k.P_Moves[i].x == second_x)
+                    {
+                        Debug.Log("ITS WOOOOORKINg FUCK YEAH!");
+                        MoveFigure();
+
+                        
+                        
+                    }
+
+                }
+            }
+        }
+
+        //
+
+        if (name == "rook")
+        {
+            Debug.Log("nameCorrect");
+            if (color == 0)
+            {
+                Debug.Log("colorCorrect");
+                rook rk = new rook();
+
+                rk.PossibleMoves(z, x);
+
+                for (int i = 0; i < rk.P_Moves_Up.Count; i++)
+                {
+                    if (rk.P_Moves_Up[i].z == second_z & rk.P_Moves_Up[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+                for (int i = 0; i < rk.P_Moves_Down.Count; i++)
+                {
+                    if (rk.P_Moves_Down[i].z == second_z & rk.P_Moves_Down[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+                for (int i = 0; i < rk.P_Moves_Left.Count; i++)
+                {
+                    if (rk.P_Moves_Left[i].z == second_z & rk.P_Moves_Left[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+                for (int i = 0; i < rk.P_Moves_Right.Count; i++)
+                {
+
+                    if (rk.P_Moves_Right[i].z == second_z & rk.P_Moves_Right[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+            }
+        }
+
+        //
+
+        if (name == "bishop")
+        {
+            Debug.Log("nameCorrect");
+            if (color == 0)
+            {
+                Debug.Log("colorCorrect");
+                bishop q = new bishop();
+
+                q.PossibleMoves(z, x);
+
+                
+
+                for (int i = 0; i < q.P_Moves_LeftUp.Count; i++)
+                {
+                    if (q.P_Moves_LeftUp[i].z == second_z & q.P_Moves_LeftUp[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+                for (int i = 0; i < q.P_Moves_RightUp.Count; i++)
+                {
+                    if (q.P_Moves_RightUp[i].z == second_z & q.P_Moves_RightUp[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+
+                for (int i = 0; i < q.P_Moves_RightDown.Count; i++)
+                {
+                    if (q.P_Moves_RightDown[i].z == second_z & q.P_Moves_RightDown[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+                for (int i = 0; i < q.P_Moves_LeftDown.Count; i++)
+                {
+                    if (q.P_Moves_LeftDown[i].z == second_z & q.P_Moves_LeftDown[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+
+            }
+
+
+        }
+
+        //
+        if (name == "knight")
+        {
+            Debug.Log("nameCorrect");
+            if (color == 0)
+            {
+                Debug.Log("colorCorrect");
+                knight q = new knight();
+
+                q.PossibleMoves(z, x);
+
+                for (int i = 0; i < q.P_Moves.Count; i++)
+                {
+                    if (q.P_Moves[i].z == second_z & q.P_Moves[i].x == second_x)
+                    {
+                        MoveFigure();
+                    }
+                }
+            }
+        }
+
+    }
+
+    public void ActivateFigure(float z, float x)
+    {
+
+        int first_number = (int)z;
+        int second_number = (int)x;
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+
+                board[i, j].active = false;
+
+            }
+        }
+
+        board[first_number, second_number].active = true;
+
+    }
+    public void CheckFirstActive()
+    {
+        FirstActiveted = false;
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+
+                if (board[i, j].active == true)
+                {
+                    FirstActiveted = true;
+                }
+            }
+        }
+
+    }
+    public void SecondActivateFigure(float z, float x)
+    {
+
+        int first_number = (int)z;
+        int second_number = (int)x;
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+
+                board[i, j].isSecondActive = false;
+
+            }
+        }
+
+        board[first_number, second_number].isSecondActive = true;
+        Debug.Log("second");
+        Debug.Log(board[first_number, second_number].figure_name);
+
+    }
+
+    public void DebuggingStats(int z, int x)    // отправляем координаты фигуры, получаем все статы на ней
+    {
+
+        Debug.Log(board[z, x].figure_name);
+        Debug.Log(board[z, x].colors_of_figure);
+        Debug.Log(board[z, x].active);
+        Debug.Log(board[z, x].isSecondActive);
+        
     }
 
 }

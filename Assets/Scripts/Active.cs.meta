@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 403d32a5bdfacd14e8a512f5fbaadaec
+timeCreated: 1448784925
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - rend: {instanceID: 0}
+  - default_mat: {instanceID: 0}
+  - mat: {fileID: 2100000, guid: fb14524123a44a34ab5d12fe46c4d94e, type: 2}
+  - second_mat: {fileID: 2100000, guid: c5f32c24862a1d2488ac93dc9e57d631, type: 2}
+  - Core_object: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

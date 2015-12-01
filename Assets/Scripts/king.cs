@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class king : figure
 {    //король
@@ -7,48 +8,62 @@ public class king : figure
     public bool isCheck = false;
     public bool isMate = false;
     public string name = "king";
-    public move[] P_Moves = new move[63];   // возможные шаги фигуры 
+
+    public List<move> P_Moves = new List<move>();   // возможные шаги фигуры 
 
 
-    public void PossibleMoves(int x, int z) // 8 возможных ходов + рокировка(стоит дописать)
+    public void PossibleMoves(int z, int x) // 8 возможных ходов + рокировка(стоит дописать)
     {
         move mv = new move();
         mv.x = x + 1;       // право-верх направление
         mv.z = z + 1;
-        P_Moves[0] = mv;
+        if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)   // строчка для ограничения хода в границах 8x8 
+        P_Moves.Add(mv);
 
-        mv.x = x + 1;       // право направление
-        mv.z = z;
-        P_Moves[1] = mv;
 
-        mv.x = x + 1;       // право-вниз направление
-        mv.z = z - 1;
-        P_Moves[2] = mv;
+        move mv1 = new move();
+        mv1.x = x + 1;       // право направление
+        mv1.z = z;
+        if (mv1.x >= 0 & mv1.x < 8 & mv1.z >= 0 & mv1.z < 8)   // строчка для ограничения хода в границах 8x8 
+        P_Moves.Add(mv1);
 
-        mv.x = x;       // вниз направление
-        mv.z = z - 1;
-        P_Moves[3] = mv;
+        move mv2 = new move();
+        mv2.x = x + 1;       // право-вниз направление
+        mv2.z = z - 1;
+        if (mv2.x >= 0 & mv2.x < 8 & mv2.z >= 0 & mv2.z < 8)   // строчка для ограничения хода в границах 8x8 
+        P_Moves.Add(mv2);
 
-        mv.x = x - 1;       // влево-вниз направление
-        mv.z = z - 1;
-        P_Moves[4] = mv;
+        move mv3 = new move();
+        mv3.x = x;       // вниз направление
+        mv3.z = z - 1;
+        if (mv3.x >= 0 & mv3.x < 8 & mv3.z >= 0 & mv3.z < 8)   // строчка для ограничения хода в границах 8x8 
+        P_Moves.Add(mv3);
 
-        mv.x = x - 1;       // влево направление
-        mv.z = z;
-        P_Moves[5] = mv;
+        move mv4 = new move();
+        mv4.x = x - 1;       // влево-вниз направление
+        mv4.z = z - 1;
+        if (mv4.x >= 0 & mv4.x < 8 & mv4.z >= 0 & mv4.z < 8)   // строчка для ограничения хода в границах 8x8 
+        P_Moves.Add(mv4);
 
-        mv.x = x - 1;       // влево-вверх направление
-        mv.z = z + 1;
-        P_Moves[6] = mv;
+        move mv5 = new move();
+        mv5.x = x - 1;       // влево направление
+        mv5.z = z;
+        if (mv5.x >= 0 & mv5.x < 8 & mv5.z >= 0 & mv5.z < 8)   // строчка для ограничения хода в границах 8x8 
+        P_Moves.Add(mv5);
 
-        mv.x = x;       // вверх направление
-        mv.z = z + 1;
-        P_Moves[7] = mv;
+        move mv6 = new move();
+        mv6.x = x - 1;       // влево-вверх направление
+        mv6.z = z + 1;
+        if (mv6.x >= 0 & mv6.x < 8 & mv6.z >= 0 & mv6.z < 8)   // строчка для ограничения хода в границах 8x8 
+        P_Moves.Add(mv6);
+
+        move mv7 = new move();
+        mv7.x = x;       // вверх направление
+        mv7.z = z + 1;
+        if (mv7.x >= 0 & mv7.x < 8 & mv7.z >= 0 & mv7.z < 8)   // строчка для ограничения хода в границах 8x8 
+        P_Moves.Add(mv7);
 
     }
-
-    
-
     
 
 }
