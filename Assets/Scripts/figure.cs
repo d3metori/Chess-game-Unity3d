@@ -8,7 +8,7 @@ public class figure  {
 
     public int x;  // x(строка) 
     public int z; //  z(столбец)
-    public int colors_of_figure;   // 0 - white 1- black 
+    public int colors_of_figure;   // 0 - наш цвет 1- цвет врага 
     public bool active = false; // активна ли фигура т.е. выбрана ли она пользователем
     public bool isSecondActive = false;
     public string figure_name = "empty";

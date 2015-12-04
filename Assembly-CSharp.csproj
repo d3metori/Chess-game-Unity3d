@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Core.cs" />
      <Compile Include="Assets\Scripts\Main_menu.cs" />
      <Compile Include="Assets\Scripts\Rotate_Around_Scene.cs" />
+     <Compile Include="Assets\Scripts\SenderState.cs" />
      <Compile Include="Assets\Scripts\bishop.cs" />
      <Compile Include="Assets\Scripts\empty.cs" />
      <Compile Include="Assets\Scripts\figure.cs" />

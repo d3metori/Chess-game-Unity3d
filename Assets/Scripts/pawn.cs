@@ -21,7 +21,7 @@ public class pawn : figure
         Core scriptToAccess = Core_object.GetComponent<Core>();
 
 
-        if (colors_of_figure == 0)
+        if (scriptToAccess.State == 0)
         {
             move mv = new move();
 
@@ -29,8 +29,10 @@ public class pawn : figure
             mv.z = z + 1;
             if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)   // строчка для ограничения хода в границах 8x8 
             {
-                P_Moves.Add(mv);
-                Debug.Log("added pawn");
+                if (scriptToAccess.board[mv.z, mv.x].figure_name == "empty")
+                {
+                    P_Moves.Add(mv);
+                }
             }
 
 
@@ -40,14 +42,11 @@ public class pawn : figure
             mv1.x = x + 1;  // для атаки
             mv1.z = z + 1;
             if (mv1.x >= 0 & mv1.x < 8 & mv1.z >= 0 & mv1.z < 8)   // строчка для ограничения хода в границах 8x8 
-            {  
-                    Debug.Log(mv1.z);
-                    Debug.Log(mv1.x);
+            {
+                if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != 0)
+                {
                     Attack_Moves.Add(mv1);
-                
-                Debug.Log("added pawn");
-              
-                
+                }                 
             }
 
 
@@ -58,11 +57,10 @@ public class pawn : figure
             if (mv2.x >= 0 & mv2.x < 8 & mv2.z >= 0 & mv2.z < 8)   // строчка для ограничения хода в границах 8x8 
             {
 
-                    Debug.Log(mv2.z);
-                    Debug.Log(mv2.x);
+                if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != 0)
+                {
                     Attack_Moves.Add(mv2);
-                
-                Debug.Log("added pawn");
+                }
             }
 
 
@@ -74,22 +72,29 @@ public class pawn : figure
                 mv3.z = z + 2;
                 if (mv3.x >= 0 & mv3.x < 8 & mv3.z >= 0 & mv3.z < 8)   // строчка для ограничения хода в границах 8x8 
                 {
-                    P_Moves.Add(mv3);
-                    Debug.Log("added pawn");
+                    if (scriptToAccess.board[mv.z, mv.x].figure_name == "empty")
+                    {
+                        P_Moves.Add(mv3);
+                        Debug.Log("added pawn");
+                    }
                 }
 
 
 
             }
-        }/*
-        else
+        }
+        else 
         {
             move mv4 = new move();
             mv4.x = x;      // для движения
             mv4.z = z - 1;
             if (mv4.x >= 0 & mv4.x < 8 & mv4.z >= 0 & mv4.z < 8)   // строчка для ограничения хода в границах 8x8 
             {
-                Debug.Log("added pawn");
+                if (scriptToAccess.board[mv4.z, mv4.x].figure_name == "empty")
+                {
+                    P_Moves.Add(mv4);
+                    Debug.Log("added pawn");
+                }
             }
 
             move mv5 = new move();
@@ -100,10 +105,10 @@ public class pawn : figure
             {
                 if (scriptToAccess.board[z--, x++].colors_of_figure == 0)
                 {
-                    Debug.Log(mv5.z);
-                    Debug.Log(mv5.x);
-                    Attack_Moves.Add(mv5);
-                    Debug.Log("added pawn");
+                    if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != 1)
+                    {
+                        Attack_Moves.Add(mv5);
+                    }
                 }
             }
 
@@ -115,10 +120,10 @@ public class pawn : figure
             {
                 if (scriptToAccess.board[z--, x--].colors_of_figure == 0)
                 {
-                    Debug.Log(mv6.z);
-                    Debug.Log(mv6.x);
-                    Attack_Moves.Add(mv6);
-                    Debug.Log("added pawn");
+                    if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != 1)
+                    {
+                        Attack_Moves.Add(mv6);
+                    }
                 }
             }
 
@@ -135,6 +140,6 @@ public class pawn : figure
                     Debug.Log("added pawn");
                 }
             }
-        }*/
+        }
     }
 }
