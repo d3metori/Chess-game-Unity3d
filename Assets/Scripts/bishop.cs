@@ -33,7 +33,7 @@ public class bishop : figure
                     if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                     {
                         Can_add = false;
-                        if(scriptToAccess.board[scriptToAccess.second_z,scriptToAccess.second_x].colors_of_figure == scriptToAccess.State2){   // добавляем ели цвет не наш
+                        if(scriptToAccess.board[scriptToAccess.second_z,scriptToAccess.second_x].colors_of_figure != 0){   // добавляем ели цвет не наш
                         P_Moves_RightUp.Add(mv);
                         }
                     }
@@ -63,10 +63,10 @@ public class bishop : figure
                     if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                     {
                         Can_add = false;
-                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != scriptToAccess.State2)
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != 0)
                         {   // добавляем ели цвет не наш
                             Debug.Log("mov");
-                            P_Moves_RightUp.Add(mv);
+                            P_Moves_RightDown.Add(mv);
                         }
                     }
                 }
@@ -74,7 +74,7 @@ public class bishop : figure
                 if (Can_add)
                 {
                     Debug.Log("move");
-                    P_Moves_RightUp.Add(mv);
+                    P_Moves_RightDown.Add(mv);
                 }
 
             }
@@ -95,15 +95,19 @@ public class bishop : figure
                     if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                     {
                         Can_add = false;
-                        P_Moves_RightUp.Add(mv);
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != 0)
+                        {   // добавляем ели цвет не наш
+                            Debug.Log("mov");
+                            P_Moves_LeftDown.Add(mv);
+                        }
                     }
                 }
 
                 if (Can_add)
                 {
-                    P_Moves_RightUp.Add(mv);
+                    Debug.Log("move");
+                    P_Moves_LeftDown.Add(mv);
                 }
-
             }
         }
 
@@ -121,12 +125,17 @@ public class bishop : figure
                     if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                     {
                         Can_add = false;
-                        P_Moves_LeftUp.Add(mv);
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != 0)
+                        {   // добавляем ели цвет не наш
+                            Debug.Log("mov");
+                            P_Moves_LeftUp.Add(mv);
+                        }
                     }
                 }
 
                 if (Can_add)
                 {
+                    Debug.Log("move");
                     P_Moves_LeftUp.Add(mv);
                 }
             }

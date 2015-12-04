@@ -38,7 +38,7 @@ public class rook : figure
                    if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                    {
                        Can_add = false;
-                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == scriptToAccess.State2)
+                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
                        {   // добавляем ели цвет не наш
                            P_Moves_Up.Add(mv);
                        }
@@ -66,7 +66,7 @@ public class rook : figure
                    if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                    {
                        Can_add = false;
-                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == scriptToAccess.State2)
+                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
                        {   // добавляем ели цвет не наш
                            P_Moves_Down.Add(mv);
                        }
@@ -94,7 +94,7 @@ public class rook : figure
                    if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                    {
                        Can_add = false;
-                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == scriptToAccess.State2)
+                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
                        {   // добавляем ели цвет не наш
                            P_Moves_Left.Add(mv);
                        }
@@ -122,7 +122,7 @@ public class rook : figure
                    if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                    {
                        Can_add = false;
-                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == scriptToAccess.State2)
+                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
                        {   // добавляем ели цвет не наш
                            P_Moves_Right.Add(mv);
                        }
