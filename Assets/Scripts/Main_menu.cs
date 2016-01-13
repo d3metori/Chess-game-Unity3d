@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Сделано студентом Группы П-304 Терентьевым Дмитрием
+
 public class Main_menu : MonoBehaviour {
 
     public GameObject _ui_start;    //Start_ui
@@ -60,7 +62,9 @@ public class Main_menu : MonoBehaviour {
 
        SenderState scriptToAccess = stateOBJ.GetComponent<SenderState>();
        scriptToAccess.SetColor(1);
+       Debug.Log("Color setted is 1");
        Application.LoadLevel("Scene");
+      
 
    }
 
@@ -68,6 +72,7 @@ public class Main_menu : MonoBehaviour {
    {
        SenderState scriptToAccess = stateOBJ.GetComponent<SenderState>();
        scriptToAccess.SetColor(0);
+       Debug.Log("Color setted is 0");
        Application.LoadLevel("Scene");
      
 

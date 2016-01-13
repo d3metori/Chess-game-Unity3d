@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// Создано Студентом группы П-304 Терентьев Д.
+// Сделано студентом Группы П-304 Терентьевым Дмитрием
 
 public class Rotate_Around_Scene : MonoBehaviour {
 
