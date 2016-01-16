@@ -10,6 +10,7 @@ public class rook : figure
      
     public string name = "rook";
 
+    public List<move> All_moves = new List<move>();
 
     public List<move> P_Moves_Up = new List<move>();    // массивы для направлений
     public List<move> P_Moves_Down = new List<move>();
@@ -22,8 +23,25 @@ public class rook : figure
 
    public void PossibleMoves(int z, int x) //   28 возможных ходов
    {
+
        Core_object = GameObject.Find("Core");
        Core scriptToAccess = Core_object.GetComponent<Core>();
+
+       int myColor = 0;
+       if (scriptToAccess.State == 1)
+       {
+           myColor = 0;
+       }
+       else
+       {
+           myColor = 1;
+       }
+
+       int for_z, for_x;
+       for_z = z;
+       for_x = x;
+
+
 
 
        for (int i = 1; i < 8; i++)    // Вверх
@@ -34,25 +52,38 @@ public class rook : figure
            if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
            {
 
-
                if (Can_add)
                {
                    if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                    {
                        Can_add = false;
-                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
+                       if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                        {   // добавляем ели цвет не наш
                            P_Moves_Up.Add(mv);
+                      //     Debug.Log(mv.z);
+                       //    Debug.Log(mv.x);
+                      //     Debug.Log("rook");
+                           break;
                        }
                    }
-               }
 
-               if (Can_add)
-               {
-                   P_Moves_Up.Add(mv);
+                   if (Can_add)
+                   {
+                       if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
+                       {
+                           P_Moves_Up.Add(mv);
+                           //    Debug.Log(mv.z);
+                           //   Debug.Log(mv.x);
+                           //   Debug.Log("rook");
+                       }
+
+                   }
                }
            }
        }
+
+       z = for_z;
+       x = for_x;
 
        Can_add = true;
 
@@ -65,22 +96,32 @@ public class rook : figure
            {
                if (Can_add)
                {
-                   if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
-                   {
-                       Can_add = false;
-                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
-                       {   // добавляем ели цвет не наш
-                           P_Moves_Down.Add(mv);
-                       }
+                   if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                   {   // добавляем ели цвет не наш
+                       P_Moves_Down.Add(mv);
+                    //   Debug.Log(mv.z);
+                    //   Debug.Log(mv.x);
+                    //   Debug.Log("rook");
+                       break;
                    }
                }
 
                if (Can_add)
                {
-                   P_Moves_Down.Add(mv);
+                   if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
+                   {
+                       P_Moves_Down.Add(mv);
+                       //  Debug.Log(mv.z);
+                       //  Debug.Log(mv.x);
+                       //  Debug.Log("rook");
+                   }
+                   
                }
            }
        }
+
+       z = for_z;
+       x = for_x;
 
        Can_add = true;
 
@@ -93,22 +134,31 @@ public class rook : figure
            {
                if (Can_add)
                {
-                   if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
-                   {
-                       Can_add = false;
-                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
-                       {   // добавляем ели цвет не наш
-                           P_Moves_Left.Add(mv);
-                       }
+                   if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                   {   // добавляем ели цвет не наш
+                       P_Moves_Left.Add(mv);
+                  //     Debug.Log(mv.z);
+                  //     Debug.Log(mv.x);
+                  //     Debug.Log("rook");
+                       break;
                    }
                }
 
                if (Can_add)
                {
-                   P_Moves_Left.Add(mv);
+                   if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
+                   {
+                       P_Moves_Left.Add(mv);
+                       //     Debug.Log(mv.z);
+                       //     Debug.Log(mv.x);
+                       //     Debug.Log("rook");
+                   }
                }
            }
        }
+
+       z = for_z;
+       x = for_x;
 
        Can_add = true;
 
@@ -121,24 +171,63 @@ public class rook : figure
            {
                if (Can_add)
                {
-                   if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
-                   {
-                       Can_add = false;
-                       if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
-                       {   // добавляем ели цвет не наш
-                           P_Moves_Right.Add(mv);
-                       }
+                   if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                   {   // добавляем ели цвет не наш
+                       P_Moves_Right.Add(mv);
+                  //     Debug.Log(mv.z);
+                  //     Debug.Log(mv.x);
+                  //     Debug.Log("rook");
+                       break;
                    }
                }
 
                if (Can_add)
                {
-                   P_Moves_Right.Add(mv);
+                   if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
+                   {
+                       P_Moves_Right.Add(mv);
+                       //     Debug.Log(mv.z);
+                       //     Debug.Log(mv.x);
+                       //      Debug.Log("rook");
+                   }
                }
            }
        }
 
+
+
        Can_add = true;
+
+
+
+       for (int i = 0; i < P_Moves_Up.Count; i++)
+       {
+           All_moves.Add(P_Moves_Up[i]);
+       }
+
+       for (int i = 0; i < P_Moves_Down.Count; i++)
+       {
+           All_moves.Add(P_Moves_Down[i]);
+       }
+
+       for (int i = 0; i < P_Moves_Left.Count; i++)
+       {
+           All_moves.Add(P_Moves_Left[i]);
+       }
+
+       for (int i = 0; i < P_Moves_Right.Count; i++)
+       {
+           All_moves.Add(P_Moves_Right[i]);
+       }
+
+
+       for (int i = 0; i < All_moves.Count; i++)
+       {
+           All_moves[i].name = "rook";
+           All_moves[i].started_z = for_z;
+           All_moves[i].started_x = for_x;
+  
+       }
 
    }
 	

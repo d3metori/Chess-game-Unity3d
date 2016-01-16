@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 // Сделано студентом Группы П-304 Терентьевым Дмитрием
 
@@ -8,6 +9,8 @@ public class Core : MonoBehaviour
 {
     public GameObject stateOBJ;
     public GameObject AIOBJ;
+
+    public int moves = 0;
 
     public int State = 0; // 0,1  0 - наш ход, 1 - ход врага
     public int State2 = 1;  // наш цвет -- 0 - белый 1 - черный
@@ -21,6 +24,7 @@ public class Core : MonoBehaviour
 
     public bool FirstActiveted = false; // активирована ли первая фигура
 
+    public int kings = 2; // кол-во королей
 
     public GameObject cell;     // набор обьектов для дальнейшей их визуализации
     public Renderer for_cell;   // renderer для смены материала на 'cell'е 
@@ -39,6 +43,8 @@ public class Core : MonoBehaviour
     public Renderer king_r;
     public GameObject empty_obj;
     public Renderer empty_r;
+
+    public GameObject king_alert;
 
     public int z;    // позиции активированных фигур
     public int x;
@@ -72,6 +78,8 @@ public class Core : MonoBehaviour
 
     void Awake()    // при создании кадра происходит до Start 
     {
+        DontDestroyOnLoad(this.gameObject);
+
         AIOBJ = GameObject.Find("AI");
         stateOBJ = GameObject.Find("StateMessanger");
         SenderState scriptToAccessOBJ = stateOBJ.GetComponent<SenderState>();
@@ -79,7 +87,7 @@ public class Core : MonoBehaviour
         State = scriptToAccessOBJ.color;
         filing_table();
 
-       
+
     }
 
     void filing_table()    // заполняем доску
@@ -180,7 +188,7 @@ public class Core : MonoBehaviour
 
     }
 
-    void Start()    
+    void Start()
     {
         SetGameSettings();
         UpdateFigures();
@@ -195,22 +203,21 @@ public class Core : MonoBehaviour
 
     void Update()
     {
+
+        
+
         if (Input.GetKeyUp(KeyCode.A))
         {
             DebuggingStats(z, x);
-            
+
         }
 
-        
-    }
-
-    void LateUpdate()
-    {
 
     }
 
     public void UpdateFigures()    // Визуальная часть, после каждого хода вызываем для обновления отображения фигур
     {
+
         for (int z = 0; z < 8; z++)
         {
             for (int x = 0; x < 8; x++)
@@ -270,7 +277,7 @@ public class Core : MonoBehaviour
                     {
                         pawn_r.material = white_mat;
                     }
-                    
+
                     Instantiate(pawn, new Vector3(x, 0, z), transform.rotation);
                     pawn.tag = "Figure";
                 }
@@ -356,6 +363,12 @@ public class Core : MonoBehaviour
                 }
             }
         }
+
+
+
+
+        
+           
     }
 
     public void DeleteFigures()    // Удаление фигур
@@ -369,6 +382,9 @@ public class Core : MonoBehaviour
 
     public void MoveFigure()    // двигает 2 текущие активные фигуры
     {
+        moves++;
+
+        DebuggingStats(z, x);
 
         if (board[second_z, second_x].figure_name == "empty")    // просто двигаем
         {
@@ -376,15 +392,15 @@ public class Core : MonoBehaviour
             board[z, x] = board[second_z, second_x];
             board[second_z, second_x] = buffer;
 
-            Debug.Log("moved");
+           // Debug.Log("moved");
 
         }
 
         DeleteFigures();
         UpdateFigures();
 
-        Debug.Log(board[z, x].figure_name);
-        Debug.Log(board[second_z, second_x].figure_name);
+       // Debug.Log(board[z, x].figure_name);
+      //  Debug.Log(board[second_z, second_x].figure_name);
 
         board[z, x].isSecondActive = false;
         board[z, x].active = false;
@@ -394,31 +410,106 @@ public class Core : MonoBehaviour
 
 
 
+        
+  
         if (State == 0)
         {
             To_AI();
         }
-       
+
+
+    }
+
+    public void RokirovkaMove()
+    {
         
+        if (board[z, x].figure_name == "king")
+        {
+            if (z == 0 & x == 4)
+            {
+                if(second_z == 0 & second_x == 2){
+
+                    buffer = board[0, 0];
+                    board[0, 0] = board[0, 3];
+                    board[0, 3] = buffer;
+                 
+                }
+            }
+        }
+
+
+        if (board[z, x].figure_name == "king")
+        {
+            if (z == 0 & x == 4)
+            {
+                if (second_z == 0 & second_x == 6)
+                {
+
+                    buffer = board[0, 7];
+                    board[0, 7] = board[0, 5];
+                    board[0, 5] = buffer;
+
+                }
+            }
+        }
+
+
+        if (board[z, x].figure_name == "king")
+        {
+            if (z == 7 & x == 4)
+            {
+                if (second_z == 7 & second_x == 2)
+                {
+
+                    buffer = board[7, 7];
+                    board[7, 7] = board[7, 3];
+                    board[7, 3] = buffer;
+
+                }
+            }
+        }
+
+
+        if (board[z, x].figure_name == "king")
+        {
+            if (z == 7 & x == 4)
+            {
+                if (second_z == 7 & second_x == 6)
+                {
+
+                    buffer = board[7, 7];
+                    board[7, 7] = board[7, 5];
+                    board[7, 5] = buffer;
+
+                }
+            }
+        }
+
     }
 
     public void AttackFigure()  // атака
     {
         empty empt = new empty();
+
+        if (board[second_z, second_x].figure_name == "king")
+        {
+            Application.LoadLevel("End");
+        }
+
         board[second_z, second_x] = empt;
         MoveFigure();
     }
 
-    public void isMoveCanBe(string name, int color)   //z and x откуда стартуем
+    public void isMoveCanBe(string name, int color)   // вызывается если активны уже 2 фигуры и проверяется что с ними делать
     {
         if (State == 0)
         {
             if (name == "pawn")
             {
-                Debug.Log("nameCorrect");
+               // Debug.Log("nameCorrect");
                 if (color == 0)
                 {
-                    Debug.Log("colorCorrect");
+                  //  Debug.Log("colorCorrect");
                     pawn pn = new pawn();
                     if (board[z, x].first_move == false)
                     {
@@ -458,10 +549,10 @@ public class Core : MonoBehaviour
 
             if (name == "queen")
             {
-                Debug.Log("nameCorrect");
+               // Debug.Log("nameCorrect");
 
 
-                Debug.Log("colorCorrect");
+              //  Debug.Log("colorCorrect");
                 queen q = new queen();
 
                 q.PossibleMoves(z, x);
@@ -593,9 +684,6 @@ public class Core : MonoBehaviour
 
             if (name == "king")
             {
-                Debug.Log("nameCorrect");
-
-                Debug.Log("colorCorrect");
                 king k = new king();
 
                 k.PossibleMoves(z, x);
@@ -606,12 +694,22 @@ public class Core : MonoBehaviour
                     {
                         if (color == 0)
                         {
+
                             MoveFigure();
                         }
                         else
                         {
                             AttackFigure();
                         }
+                    }
+                }
+
+                for (int i = 0; i < k.P_Moves_r.Count; i++)
+                {
+                    if (k.P_Moves_r[i].z == second_z & k.P_Moves_r[i].x == second_x)
+                    {
+                        RokirovkaMove();
+                        MoveFigure();
                     }
                 }
             }
@@ -791,8 +889,8 @@ public class Core : MonoBehaviour
                 }
             }
         }
-    }  
-    
+    }
+
 
     public void ActivateFigure(float z, float x)
     {
@@ -851,8 +949,8 @@ public class Core : MonoBehaviour
             }
 
             board[first_number, second_number].isSecondActive = true;
-            Debug.Log("second");
-            Debug.Log(board[first_number, second_number].figure_name);
+          //  Debug.Log("second");
+          //  Debug.Log(board[first_number, second_number].figure_name);
         }
     }
 
@@ -860,10 +958,11 @@ public class Core : MonoBehaviour
     {
 
         Debug.Log(board[z, x].figure_name);
+        Debug.Log("color");
         Debug.Log(board[z, x].colors_of_figure);
         Debug.Log(board[z, x].active);
         Debug.Log(board[z, x].isSecondActive);
-        
+
     }
 
     public void setGlobalPlayerColor(int color)
@@ -879,4 +978,7 @@ public class Core : MonoBehaviour
         script_AI.StartThinking();
     }
 
+
+
 }
+    

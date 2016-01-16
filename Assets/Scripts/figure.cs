@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 // Сделано студентом Группы П-304 Терентьевым Дмитрием
 
-public class figure  {
+public class figure 
+{
 
     // Для белых фигур
 

@@ -6,7 +6,11 @@ using System.Collections.Generic;
 
 public class move {
 
+    public string name;
+
+    public int started_z;
+    public int started_x;
+
     public int z;
     public int x;
-	
 }
