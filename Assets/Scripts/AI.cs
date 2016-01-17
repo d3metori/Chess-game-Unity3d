@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 // Сделано студентом Группы П-304 Терентьевым Дмитрием
-
+/// <summary>
+/// Здесь прописана логика для ИИ
+/// </summary>
 public class AI : MonoBehaviour {
 
     public GameObject Core_object;
@@ -47,6 +49,9 @@ public class AI : MonoBehaviour {
 
     public List<figure> first = new List<figure>();
 
+    /// <summary>
+    /// Вызывается, когда требуется сделать ход
+    /// </summary>
  public void StartThinking()
  {
         from_z = 0;
@@ -59,7 +64,9 @@ public class AI : MonoBehaviour {
      calculate();
 
  }
-
+    /// <summary>
+    /// Вычисляет куда идет фигура
+    /// </summary>
  public void calculate()
  {
      danger = false;
@@ -310,7 +317,9 @@ public class AI : MonoBehaviour {
      }
  }
 
-
+    /// <summary>
+    /// Ставится приоритет для доски
+    /// </summary>
  public void set_weight_of_board()
  {
       Core scriptToAccess = Core_object.GetComponent<Core>();
@@ -346,6 +355,9 @@ public class AI : MonoBehaviour {
       }
       Debug.Log("settled");
  }
+    /// <summary>
+    /// Сборка всех ходов
+    /// </summary>
  public void checkForMovement()         // собирает все возможные ходы
  {
      Core scriptToAccess = Core_object.GetComponent<Core>();
@@ -568,7 +580,13 @@ public class AI : MonoBehaviour {
      }
  }
  
-
+    /// <summary>
+    /// запрос на передвижение или атаку
+    /// </summary>
+    /// <param name="z">начальная координата по z</param>
+    /// <param name="x">начальная координата по x</param>
+    /// <param name="second_z"> конечная координата по z </param>
+    /// <param name="second_x">  конечная координата по x</param>
  public void MOVEForAI(int z, int x, int second_z, int second_x)    // z x координаты первой фигуры, s_z s_x координаты 2ой фигуры
  {
      All_mv.Clear();

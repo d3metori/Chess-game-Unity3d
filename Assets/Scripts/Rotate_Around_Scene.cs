@@ -2,11 +2,14 @@
 using System.Collections;
 
 // Сделано студентом Группы П-304 Терентьевым Дмитрием
-
+/// <summary>
+/// Вращение камеры
+/// </summary>
 public class Rotate_Around_Scene : MonoBehaviour {
 
     public Transform point_of_rotating;
     public float sensitivityX, sensitivityY = 15f;
+    
     public float speed = 10f;
     private bool entered_r = false;     //For left panel
     private bool entered_l = false;     //For right panel

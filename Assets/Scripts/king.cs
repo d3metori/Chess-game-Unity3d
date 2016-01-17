@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 // Сделано студентом Группы П-304 Терентьевым Дмитрием
-
+/// <summary>
+/// Данный класс отвечает за одну из фигур - king
+/// </summary>
 public class king : figure 
 {    //король
     public GameObject Core_object;
@@ -17,7 +19,11 @@ public class king : figure
 
 
 
-
+    /// <summary>
+    /// Вычисляет возможные ходы для данного класса
+    /// </summary>
+    /// <param name="z"> начальная координата по z</param>
+    /// <param name="x"> начальная координата по x</param>
     public void PossibleMoves(int z, int x) // 8 возможных ходов + рокировка(стоит дописать)
     {
         int for_z, for_x;

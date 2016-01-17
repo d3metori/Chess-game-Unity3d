@@ -1,6 +1,5 @@
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\Assembly-CSharp.dll
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\Assembly-CSharp.pdb
-C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\Assembly-CSharp.XML
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\UnityEditor.dll
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\UnityEngine.dll
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\UnityEngine.Networking.dll
@@ -21,3 +20,7 @@ C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\UnityEngine.Net
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\obj\Debug\Assembly-CSharp.dll
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\obj\Debug\Assembly-CSharp.pdb
+C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\Assembly-CSharp.XML
+E:\uniDoc\Assembly-CSharp.dll
+E:\uniDoc\Assembly-CSharp.pdb
+E:\uniDoc\Assembly-CSharp.XML

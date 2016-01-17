@@ -5,7 +5,7 @@ using System.Collections.Generic;
 // Сделано студентом Группы П-304 Терентьевым Дмитрием
 
 /// <summary>
-/// Это класс пешки - самой слабой фигуры в шахматах
+/// Данный класс отвечает за одну из фигур - pawn
 /// </summary>
 public class pawn : figure
 {    //пешка
@@ -21,6 +21,11 @@ public class pawn : figure
     public int for_z;
     public int for_x;
 
+    /// <summary>
+    /// Вычисляет возможные ходы для данного класса
+    /// </summary>
+    /// <param name="z"> начальная координата по z</param>
+    /// <param name="x"> начальная координата по x</param>
     public void PossibleMoves(int z, int x) //   28 возможных ходов
     {
         for_z = z;
@@ -130,6 +135,12 @@ public class pawn : figure
 
     }
 
+
+    /// <summary>
+    /// Вычисляет возможные ходы для ИИ
+    /// </summary>
+    /// <param name="z"> начальная координата по z</param>
+    /// <param name="x"> начальная координата по x</param>
     public void PossibleMovesAI(int z, int x)
     {
 

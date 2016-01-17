@@ -25,7 +25,6 @@ C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\Unity.CecilTool
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\Mono.Cecil.Pdb.dll
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\Assembly-CSharp.pdb
-C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\Assembly-CSharp.xml
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\UnityEngine.xml
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\UnityEditor.xml
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\UnityEditor.Advertisements.xml
@@ -39,3 +38,5 @@ C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\UnityEditor.Tre
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\obj\Debug\Assembly-CSharp-Editor.csprojResolveAssemblyReference.cache
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\obj\Debug\Assembly-CSharp-Editor.dll
 C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\obj\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\Assembly-CSharp.xml
+C:\Users\sores_000\Documents\Kyrsovaya\Chess-game\Temp\bin\Debug\Assembly-CSharp.dll

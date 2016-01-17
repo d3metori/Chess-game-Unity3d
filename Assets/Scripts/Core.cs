@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 // Сделано студентом Группы П-304 Терентьевым Дмитрием
-
+/// <summary>
+/// Сердце проекта
+/// </summary>
 public class Core : MonoBehaviour
 {
     public GameObject stateOBJ;
@@ -57,7 +59,10 @@ public class Core : MonoBehaviour
     public Material buff_mat;
     public Material black_mat;  // черный материал
 
-    void SetGameSettings()  // данная функция существует для того ччтобы понять черные мы или белые. 
+    /// <summary>
+    /// данная функция существует для того ччтобы понять черные мы или белые. 
+    /// </summary>
+    void SetGameSettings() 
     {
         if (State2 == 0)
         {
@@ -78,7 +83,10 @@ public class Core : MonoBehaviour
 
     }
 
-    void Awake()    // при создании кадра происходит до Start 
+    /// <summary>
+    /// при создании кадра происходит до Start . создаем и заполняем доску
+    /// </summary>
+    void Awake()    
     {
         DontDestroyOnLoad(this.gameObject);
 
@@ -92,7 +100,10 @@ public class Core : MonoBehaviour
 
     }
 
-    void filing_table()    // заполняем доску
+    /// <summary>
+    /// заполняем доску
+    /// </summary>
+    void filing_table()    
     {
         for (int i = 0; i < 8; i++) // заполнение всей доски пустыми значениями
         {
@@ -190,6 +201,9 @@ public class Core : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// ставятся настройки и обновляются все фигуры
+    /// </summary>
     void Start()
     {
         SetGameSettings();
@@ -210,33 +224,10 @@ public class Core : MonoBehaviour
  
     }
 
-    void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.D))
-       {
-
-           Debug.Log(board[3,3].figure_name);
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-       {
-
-
-            for (int i = 0; i < 8; i++)
-            {
-
-
-                DebuggingStats(6, i);
-            }
-               
-
-        }
-
-
-    }
-
-    public void UpdateFigures()    // Визуальная часть, после каждого хода вызываем для обновления отображения фигур
+    /// <summary>
+    /// Визуальная часть, после каждого хода вызываем для обновления отображения фигур
+    /// </summary>
+    public void UpdateFigures()    
     {
         
 
@@ -392,7 +383,10 @@ public class Core : MonoBehaviour
            
     }
 
-    public void DeleteFigures()    // Удаление всех фигур физически
+    /// <summary>
+    ///  Удаление всех фигур физически
+    /// </summary>
+    public void DeleteFigures()   
     {
         del = GameObject.FindGameObjectsWithTag("Figure");
         for (int i = 0; i < del.Length; i++)
@@ -401,7 +395,10 @@ public class Core : MonoBehaviour
         }
     }
 
-    public void MoveFigure()    // двигает 2 текущие активные фигуры
+    /// <summary>
+    /// двигает 2 текущие активные фигуры
+    /// </summary>
+    public void MoveFigure()    
     {
         moves++;
         
@@ -437,7 +434,10 @@ public class Core : MonoBehaviour
 
     }
 
-    public void RokirovkaMove() // рокировка
+    /// <summary>
+    /// рокировка
+    /// </summary>
+    public void RokirovkaMove() 
     {
         
         if (board[z, x].figure_name == "king")
@@ -504,7 +504,10 @@ public class Core : MonoBehaviour
 
     }
 
-    public void AttackFigure()  // атака
+    /// <summary>
+    /// атака фигур
+    /// </summary>
+    public void AttackFigure()  
     {
         empty empt = new empty();
 
@@ -517,7 +520,12 @@ public class Core : MonoBehaviour
         MoveFigure();
     }
 
-    public void isMoveCanBe(string name, int color)   // вызывается если активны уже 2 фигуры и проверяется что с ними делать
+    /// <summary>
+    /// вызывается если активны уже 2 фигуры и проверяется что с ними делать
+    /// </summary>
+    /// <param name="name"> Имя фигуры </param>
+    /// <param name="color"> Цвет фигуры </param>
+    public void isMoveCanBe(string name, int color)   
     {
         if (State == 0)
         {
@@ -908,8 +916,12 @@ public class Core : MonoBehaviour
         }
     }
 
-
-    public void ActivateFigure(float z, float x)    // активируем фигуру
+    /// <summary>
+    /// активирует фигуру
+    /// </summary>
+    /// <param name="z">координаты по z</param>
+    /// <param name="x">координаты по x</param>
+    public void ActivateFigure(float z, float x)    
     {
         if (State == 0)  // если ход наш
         {
@@ -931,6 +943,9 @@ public class Core : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Проверка активирована ли фигура?
+    /// </summary>
     public void CheckFirstActive()
     {
         FirstActiveted = false;
@@ -948,6 +963,12 @@ public class Core : MonoBehaviour
         }
 
     }
+    
+    /// <summary>
+    /// активирование 2ой фигуры
+    /// </summary>
+    /// <param name="z">координаты по z</param>
+    /// <param name="x">координаты по x</param>
     public void SecondActivateFigure(float z, float x)
     {
         if (State == 0)  // если ход наш
@@ -971,6 +992,11 @@ public class Core : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// выводит в консоль движка информацию нужную мне
+    /// </summary>
+    /// <param name="z">координаты по z</param>
+    /// <param name="x">координаты по x</param>
     public void DebuggingStats(int z, int x)    // отправляем координаты фигуры, получаем все статы на ней
     {
         for (int i = 0; i < 8; i++)
@@ -985,13 +1011,20 @@ public class Core : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// ставим цвет
+    /// </summary>
+    /// <param name="color"> цвет </param>
     public void setGlobalPlayerColor(int color)
     {
         State2 = color;
 
     }
 
-    public void To_AI() // Даем знать ИИ что сейчас его ход
+    /// <summary>
+    /// даем знать ИИ что сейчас его ход
+    /// </summary>
+    public void To_AI() 
     {
         AI script_AI = AIOBJ.GetComponent<AI>();
         State = 1;

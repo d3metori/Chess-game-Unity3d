@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 // Сделано студентом Группы П-304 Терентьевым Дмитрием
-
+/// <summary>
+/// Данный класс отвечает за одну из фигур - queen
+/// </summary>
 public class queen : figure
 {   // королева
 
@@ -24,7 +26,11 @@ public class queen : figure
     public GameObject Core_object;
     public bool Can_add = true;
 
-
+    /// <summary>
+    /// Вычисляет возможные ходы для данного класса
+    /// </summary>
+    /// <param name="z"> начальная координата по z</param>
+    /// <param name="x"> начальная координата по x</param>
     public void PossibleMoves(int z, int x) //   28 возможных ходов
     {
 

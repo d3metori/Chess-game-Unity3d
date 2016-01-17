@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+/// <summary>
+/// Выделение нужных фигур пользователем (граф. часть)
+/// </summary>
 public class Active : MonoBehaviour
 {
 
@@ -16,7 +18,9 @@ public class Active : MonoBehaviour
     private bool first_active;
     private bool second_active;
 
-    
+    /// <summary>
+    /// единожды срабатывает функция в начале
+    /// </summary>
     void Awake()
     {
         Core_object = GameObject.Find("Core");
@@ -26,7 +30,9 @@ public class Active : MonoBehaviour
         second_number = (int)this.transform.position.x;
 
     }
-
+    /// <summary>
+    /// смена материала
+    /// </summary>
     void LateUpdate()
     {
 
@@ -46,6 +52,10 @@ public class Active : MonoBehaviour
         
     }
 
+
+    /// <summary>
+    /// событие на нажатие клавиши
+    /// </summary>
     void OnMouseUp()        // будет работать только если мы белые
     {
 
@@ -140,6 +150,9 @@ public class Active : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// меняет материалы
+    /// </summary>
     void Changing_First_Materials()
     {
         Core scriptToAccess = Core_object.GetComponent<Core>();
