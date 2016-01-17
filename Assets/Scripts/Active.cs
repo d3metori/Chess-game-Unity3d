@@ -16,7 +16,7 @@ public class Active : MonoBehaviour
     private bool first_active;
     private bool second_active;
 
-
+    
     void Awake()
     {
         Core_object = GameObject.Find("Core");
@@ -160,4 +160,5 @@ public class Active : MonoBehaviour
         }
 
     }
+     
 }

@@ -109,9 +109,9 @@ public class king : figure
                 P_Moves.Add(mv);
               //  Debug.Log(myColor);
               //  Debug.Log(scriptToAccess.board[mv.z, mv.x].colors_of_figure);
-                Debug.Log(mv.z);
-                Debug.Log(mv.x);
-                Debug.Log("king");
+            //    Debug.Log(mv.z);
+            //    Debug.Log(mv.x);
+            //    Debug.Log("king");
             }
 
         }
@@ -128,18 +128,18 @@ public class king : figure
             if (scriptToAccess.board[mv1.z, mv1.x].colors_of_figure != myColor || scriptToAccess.board[mv1.z, mv1.x].figure_name == "empty")
             {
                 P_Moves.Add(mv1);
-                Debug.Log("road_to");
-                Debug.Log(scriptToAccess.board[mv1.z, mv1.x].colors_of_figure);
-                Debug.Log(scriptToAccess.board[mv1.z, mv1.x].figure_name);
-                Debug.Log("from");
-                Debug.Log(scriptToAccess.board[for_z, for_x].colors_of_figure);
-                Debug.Log(scriptToAccess.board[for_z, for_x].figure_name);
-                Debug.Log("myolor");
+            //    Debug.Log("road_to");
+            //    Debug.Log(scriptToAccess.board[mv1.z, mv1.x].colors_of_figure);
+            //    Debug.Log(scriptToAccess.board[mv1.z, mv1.x].figure_name);
+            //    Debug.Log("from");
+            //    Debug.Log(scriptToAccess.board[for_z, for_x].colors_of_figure);
+           //     Debug.Log(scriptToAccess.board[for_z, for_x].figure_name);
+          //      Debug.Log("myolor");
 
 
-                Debug.Log(mv1.z);
-                Debug.Log(mv1.x);
-                Debug.Log("king");
+           //     Debug.Log(mv1.z);
+           //     Debug.Log(mv1.x);
+           //     Debug.Log("king");
             }
 
         }
@@ -155,9 +155,9 @@ public class king : figure
             if (scriptToAccess.board[mv2.z, mv2.x].colors_of_figure != myColor || scriptToAccess.board[mv2.z, mv2.x].figure_name == "empty")
             {
                 P_Moves.Add(mv2);
-                Debug.Log(mv2.z);
-                Debug.Log(mv2.x);
-                Debug.Log("king");
+          //      Debug.Log(mv2.z);
+          //      Debug.Log(mv2.x);
+          //      Debug.Log("king");
             }
 
         }
@@ -173,9 +173,9 @@ public class king : figure
             if (scriptToAccess.board[mv3.z, mv3.x].colors_of_figure != myColor || scriptToAccess.board[mv3.z, mv3.x].figure_name == "empty")
             {
                 P_Moves.Add(mv3);
-               Debug.Log(mv3.z);
-                Debug.Log(mv3.x);
-                Debug.Log("king");
+           //    Debug.Log(mv3.z);
+           //     Debug.Log(mv3.x);
+           //     Debug.Log("king");
             }
 
         }
@@ -191,9 +191,9 @@ public class king : figure
             if (scriptToAccess.board[mv4.z, mv4.x].colors_of_figure != myColor || scriptToAccess.board[mv4.z, mv4.x].figure_name == "empty")
             {
                 P_Moves.Add(mv4);
-                Debug.Log(mv4.z);
-                Debug.Log(mv4.x);
-                Debug.Log("king");
+           //     Debug.Log(mv4.z);
+           //     Debug.Log(mv4.x);
+          //      Debug.Log("king");
             }
         }
 
@@ -208,9 +208,9 @@ public class king : figure
             if (scriptToAccess.board[mv5.z, mv5.x].colors_of_figure != myColor || scriptToAccess.board[mv5.z, mv5.x].figure_name == "empty")
             {
                 P_Moves.Add(mv5);
-                Debug.Log(mv5.z);
-                Debug.Log(mv5.x);
-                Debug.Log("king");
+             //   Debug.Log(mv5.z);
+             //   Debug.Log(mv5.x);
+             //   Debug.Log("king");
             }
 
         }
@@ -226,9 +226,9 @@ public class king : figure
             if (scriptToAccess.board[mv6.z, mv6.x].colors_of_figure != myColor || scriptToAccess.board[mv6.z, mv6.x].figure_name == "empty")
             {
                 P_Moves.Add(mv6);
-                Debug.Log(mv6.z);
-                Debug.Log(mv6.x);
-                Debug.Log("king");
+             //   Debug.Log(mv6.z);
+             //   Debug.Log(mv6.x);
+              //  Debug.Log("king");
             }
 
         }
@@ -243,14 +243,14 @@ public class king : figure
         {
             if (scriptToAccess.board[mv7.z, mv7.x].colors_of_figure != myColor || scriptToAccess.board[mv7.z, mv7.x].figure_name == "empty")
             {
-                Debug.Log("up");
-                Debug.Log(scriptToAccess.board[mv7.z, mv7.x].colors_of_figure);
-                Debug.Log(myColor);
+            //    Debug.Log("up");
+            //    Debug.Log(scriptToAccess.board[mv7.z, mv7.x].colors_of_figure);
+             //   Debug.Log(myColor);
 
                 P_Moves.Add(mv7);
-               Debug.Log(mv7.z);
-                Debug.Log(mv7.x);
-                Debug.Log("king");
+           //    Debug.Log(mv7.z);
+           //     Debug.Log(mv7.x);
+           //     Debug.Log("king");
             }
 
         }
@@ -261,8 +261,8 @@ public class king : figure
         for (int i = 0; i < P_Moves.Count; i++)
         {
             P_Moves[i].name = "king";
-            Debug.Log(P_Moves[i].z);
-            Debug.Log(P_Moves[i].x);
+         //   Debug.Log(P_Moves[i].z);
+         //   Debug.Log(P_Moves[i].x);
             P_Moves[i].started_z = for_z;
             P_Moves[i].started_x = for_x;
         }
@@ -270,8 +270,8 @@ public class king : figure
         for (int i = 0; i < P_Moves_r.Count; i++)
         {
             P_Moves_r[i].name = "king";
-            Debug.Log(P_Moves[i].z);
-            Debug.Log(P_Moves[i].x);
+         //   Debug.Log(P_Moves[i].z);
+         //   Debug.Log(P_Moves[i].x);
             P_Moves_r[i].started_z = for_z;
             P_Moves_r[i].started_x = for_x;
         }

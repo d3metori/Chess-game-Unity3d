@@ -33,54 +33,36 @@ public class queen : figure
         Core_object = GameObject.Find("Core");
         Core scriptToAccess = Core_object.GetComponent<Core>();
 
-        int myColor = 0;
-        if (scriptToAccess.State == 1)
-        {
-            myColor = 0;
-        }
-        else
-        {
-            myColor = 1;
-        }
 
         int for_z, for_x;
         for_z = z;
         for_x = x;
 
-        for (int i = 1; i < 8; i++ )    // Вверх
+        for (int i = 1; i < 8; i++)    // Вверх
         {
             move mv = new move();
             mv.x = x;
             mv.z = z + i;
-            if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)   // строчка для ограничения хода в границах 8x8 
+            if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
+
+
                 if (Can_add)
                 {
                     if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                     {
                         Can_add = false;
-                        if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
                         {   // добавляем ели цвет не наш
                             P_Moves_Up.Add(mv);
-              //              Debug.Log(mv.z);
-             //               Debug.Log(mv.x);
-             //               Debug.Log("queen");
-                            break;
                         }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
-                    {
-                        //         Debug.Log(mv.z);
-                        //         Debug.Log(mv.x);
-                        //          Debug.Log("queen");
-                        P_Moves_Up.Add(mv);
-                    }
+                    P_Moves_Up.Add(mv);
                 }
-                    
             }
         }
 
@@ -89,40 +71,31 @@ public class queen : figure
 
         Can_add = true;
 
-        for (int i = 1; i < 8; i++)    // Вниз
+        for (int i = 1; i < 8; i++)    // Down
         {
-            move mv = new move();   
+            move mv = new move();
             mv.x = x;
             mv.z = z - i;
             if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
+
+
                 if (Can_add)
                 {
                     if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                     {
                         Can_add = false;
-                        if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
                         {   // добавляем ели цвет не наш
                             P_Moves_Down.Add(mv);
-             //               Debug.Log(mv.z);
-              //              Debug.Log(mv.x);
-             //               Debug.Log("queen");
-                            break;
                         }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
-                    {
-                        //       Debug.Log(mv.z);
-                        //       Debug.Log(mv.x);
-                        //        Debug.Log("queen");
-                        P_Moves_Down.Add(mv);
-                    }
+                    P_Moves_Down.Add(mv);
                 }
-                    
             }
         }
 
@@ -131,36 +104,31 @@ public class queen : figure
 
         Can_add = true;
 
-        for (int i = 1; i < 8; i++)    // Влево
+        for (int i = 1; i < 8; i++)    // Left
         {
-            move mv = new move();  
+            move mv = new move();
             mv.x = x - i;
             mv.z = z;
             if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
+
+
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
-                    {   // добавляем ели цвет не наш
-                        P_Moves_Left.Add(mv);
-              //          Debug.Log(mv.z);
-             //           Debug.Log(mv.x);
-             //           Debug.Log("queen");
-                        break;
+                    if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                    {
+                        Can_add = false;
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
+                        {   // добавляем ели цвет не наш
+                            P_Moves_Left.Add(mv);
+                        }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
-                    {
-                        //       Debug.Log(mv.z);
-                        //       Debug.Log(mv.x);
-                        //       Debug.Log("queen");
-                        P_Moves_Left.Add(mv);
-                    }
+                    P_Moves_Left.Add(mv);
                 }
-                    
             }
         }
 
@@ -169,35 +137,31 @@ public class queen : figure
 
         Can_add = true;
 
-        for (int i = 1; i < 8; i++)    // Вправо
+        for (int i = 1; i < 8; i++)    // Right
         {
             move mv = new move();
             mv.x = x + i;
             mv.z = z;
-            if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)   // строчка для ограничения хода в границах 8x8 
+            if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
+
+
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
-                    {   // добавляем ели цвет не наш
-                        P_Moves_Right.Add(mv);
-                //        Debug.Log(mv.z);
-                //        Debug.Log(mv.x);
-                //        Debug.Log("queen");
-                        break;
+                    if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                    {
+                        Can_add = false;
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
+                        {   // добавляем ели цвет не наш
+                            P_Moves_Right.Add(mv);
+                        }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor){
-                  //  Debug.Log(mv.z);
-                 //   Debug.Log(mv.x);
-                 //   Debug.Log("queen");
                     P_Moves_Right.Add(mv);
-                    }
                 }
-                    
             }
         }
 
@@ -207,36 +171,31 @@ public class queen : figure
         Can_add = true;
 
 
-        for (int i = 1; i < 8; i++)    // Вправо+Вверх
+        for (int i = 1; i < 8; i++)    // RightUp
         {
             move mv = new move();
             mv.x = x + i;
             mv.z = z + i;
             if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
+
+
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
-                    {   // добавляем ели цвет не наш
-                        P_Moves_RightUp.Add(mv);
-                  //      Debug.Log(mv.z);
-                  //      Debug.Log(mv.x);
-                 //       Debug.Log("queen");
-                        break;
+                    if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                    {
+                        Can_add = false;
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
+                        {   // добавляем ели цвет не наш
+                            P_Moves_RightUp.Add(mv);
+                        }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
-                    {
-                        //   Debug.Log(mv.z);
-                        //  Debug.Log(mv.x);
-                        //  Debug.Log("queen");
-                        P_Moves_RightUp.Add(mv);
-                    }
+                    P_Moves_RightUp.Add(mv);
                 }
-                    
             }
         }
 
@@ -245,36 +204,31 @@ public class queen : figure
 
         Can_add = true;
 
-        for (int i = 1; i < 8; i++)    // Вправо+Вниз
+        for (int i = 1; i < 8; i++)    // RightDown
         {
             move mv = new move();
             mv.x = x + i;
             mv.z = z - i;
             if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
+
+
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
-                    {   // добавляем ели цвет не наш
-                        P_Moves_RightDown.Add(mv);
-                  //      Debug.Log(mv.z);
-                  //      Debug.Log(mv.x);
-                  //      Debug.Log("queen");
-                        break;
+                    if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                    {
+                        Can_add = false;
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
+                        {   // добавляем ели цвет не наш
+                            P_Moves_RightDown.Add(mv);
+                        }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
-                    {
-                        //    Debug.Log(mv.z);
-                        //     Debug.Log(mv.x);
-                        //     Debug.Log("queen");
-                        P_Moves_RightDown.Add(mv);
-                    }
+                    P_Moves_RightDown.Add(mv);
                 }
-                    
             }
         }
 
@@ -283,36 +237,31 @@ public class queen : figure
 
         Can_add = true;
 
-        for (int i = 1; i < 8; i++)    // Влево+Вниз
+        for (int i = 1; i < 8; i++)    // LeftDown
         {
             move mv = new move();
             mv.x = x - i;
             mv.z = z - i;
             if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
+
+
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
-                    {   // добавляем ели цвет не наш
-                        P_Moves_LeftDown.Add(mv);
-                //        Debug.Log(mv.z);
-                //        Debug.Log(mv.x);
-                 //       Debug.Log("queen");
-                        break;
+                    if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                    {
+                        Can_add = false;
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
+                        {   // добавляем ели цвет не наш
+                            P_Moves_LeftDown.Add(mv);
+                        }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
-                    {
-                        //     Debug.Log(mv.z);
-                        //     Debug.Log(mv.x);
-                        //     Debug.Log("queen");
-                        P_Moves_LeftDown.Add(mv);
-                    }
+                    P_Moves_LeftDown.Add(mv);
                 }
-                    
             }
         }
 
@@ -321,36 +270,31 @@ public class queen : figure
 
         Can_add = true;
 
-        for (int i = 1; i < 8; i++)    // Влево+Вверх
+        for (int i = 1; i < 8; i++)    // LefUp
         {
             move mv = new move();
             mv.x = x - i;
             mv.z = z + i;
             if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
+
+
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
-                    {   // добавляем ели цвет не наш
-                        P_Moves_LeftUp.Add(mv);
-                    //    Debug.Log(mv.z);
-                     //   Debug.Log(mv.x);
-                     //   Debug.Log("queen");
-                        break;
+                    if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                    {
+                        Can_add = false;
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure == 1)
+                        {   // добавляем ели цвет не наш
+                            P_Moves_LeftUp.Add(mv);
+                        }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
-                    {
-                        //   Debug.Log(mv.z);
-                        //   Debug.Log(mv.x);
-                        //   Debug.Log("queen");
-                        P_Moves_LeftUp.Add(mv);
-                    }
+                    P_Moves_LeftUp.Add(mv);
                 }
-                    
             }
         }
 

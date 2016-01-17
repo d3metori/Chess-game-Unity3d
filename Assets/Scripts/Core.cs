@@ -74,6 +74,8 @@ public class Core : MonoBehaviour
             State = 1;
         }
 
+       
+
     }
 
     void Awake()    // при создании кадра происходит до Start 
@@ -184,7 +186,7 @@ public class Core : MonoBehaviour
             board[6, i] = pn;
         }
 
-
+        
 
     }
 
@@ -193,22 +195,41 @@ public class Core : MonoBehaviour
         SetGameSettings();
         UpdateFigures();
 
+        
+
         stateOBJ = GameObject.Find("StateMessanger");
+        
+
         SenderState scriptToAccessOBJ = stateOBJ.GetComponent<SenderState>();
+        
+
         if (scriptToAccessOBJ.color == 1)   // если изначальный цвет 1 то мы передаем ход АИ
         {
             To_AI();
         }
+ 
     }
 
     void Update()
     {
 
-        
+        if (Input.GetKeyDown(KeyCode.D))
+       {
 
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            DebuggingStats(z, x);
+           Debug.Log(board[3,3].figure_name);
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+       {
+
+
+            for (int i = 0; i < 8; i++)
+            {
+
+
+                DebuggingStats(6, i);
+            }
+               
 
         }
 
@@ -217,6 +238,7 @@ public class Core : MonoBehaviour
 
     public void UpdateFigures()    // Визуальная часть, после каждого хода вызываем для обновления отображения фигур
     {
+        
 
         for (int z = 0; z < 8; z++)
         {
@@ -365,13 +387,12 @@ public class Core : MonoBehaviour
         }
 
 
-
-
+       
         
            
     }
 
-    public void DeleteFigures()    // Удаление фигур
+    public void DeleteFigures()    // Удаление всех фигур физически
     {
         del = GameObject.FindGameObjectsWithTag("Figure");
         for (int i = 0; i < del.Length; i++)
@@ -383,8 +404,8 @@ public class Core : MonoBehaviour
     public void MoveFigure()    // двигает 2 текущие активные фигуры
     {
         moves++;
-
-        DebuggingStats(z, x);
+        
+        //DebuggingStats(z, x);
 
         if (board[second_z, second_x].figure_name == "empty")    // просто двигаем
         {
@@ -407,11 +428,7 @@ public class Core : MonoBehaviour
 
         board[second_z, second_x].isSecondActive = false;
         board[second_z, second_x].active = false;
-
-
-
-        
-  
+       
         if (State == 0)
         {
             To_AI();
@@ -420,7 +437,7 @@ public class Core : MonoBehaviour
 
     }
 
-    public void RokirovkaMove()
+    public void RokirovkaMove() // рокировка
     {
         
         if (board[z, x].figure_name == "king")
@@ -892,7 +909,7 @@ public class Core : MonoBehaviour
     }
 
 
-    public void ActivateFigure(float z, float x)
+    public void ActivateFigure(float z, float x)    // активируем фигуру
     {
         if (State == 0)  // если ход наш
         {
@@ -956,12 +973,15 @@ public class Core : MonoBehaviour
 
     public void DebuggingStats(int z, int x)    // отправляем координаты фигуры, получаем все статы на ней
     {
-
-        Debug.Log(board[z, x].figure_name);
-        Debug.Log("color");
-        Debug.Log(board[z, x].colors_of_figure);
-        Debug.Log(board[z, x].active);
-        Debug.Log(board[z, x].isSecondActive);
+        for (int i = 0; i < 8; i++)
+        {
+            Debug.Log(board[7, i].figure_name);
+        }
+      //  Debug.Log(board[z, x].figure_name);
+      //  Debug.Log("color");
+      //  Debug.Log(board[z, x].colors_of_figure);
+      //  Debug.Log(board[z, x].active);
+      //  Debug.Log(board[z, x].isSecondActive);
 
     }
 
@@ -978,7 +998,6 @@ public class Core : MonoBehaviour
         script_AI.StartThinking();
     }
 
-
-
+   
 }
     

@@ -49,6 +49,11 @@ public class AI : MonoBehaviour {
 
  public void StartThinking()
  {
+        from_z = 0;
+     from_x = 0;
+     to_z = 0;
+     to_x = 0;
+
      checkForMovement();    // собираем массив ходов
      set_weight_of_board();
      calculate();
@@ -69,7 +74,7 @@ public class AI : MonoBehaviour {
 
 
              Debug.Log("KingInDanger!!");
-             Debug.Log(P_All_mv[j].z);
+            Debug.Log(P_All_mv[j].z);
              Debug.Log(P_All_mv[j].x);
              Debug.Log(P_All_mv[j].started_z);
              Debug.Log(P_All_mv[j].started_x);
@@ -87,7 +92,7 @@ public class AI : MonoBehaviour {
          }
          else
          {
-             if (scriptToAccess.board[All_mv[i].z, All_mv[i].x].colors_of_figure == 0)
+             if (scriptToAccess.board[All_mv[i].z, All_mv[i].x].figure_name != "empty")
              {
                  Atck_mv.Add(All_mv[i]);    // добавляем того кого можем схрумкать в массив
                  Debug.Log("added_to_attack");
@@ -95,7 +100,7 @@ public class AI : MonoBehaviour {
              else
              {
                  Move_mv.Add(All_mv[i]);    //  ход
-                 Debug.Log("added_to_move");
+                Debug.Log("added_to_move");
              }
          }
      }
@@ -106,7 +111,7 @@ public class AI : MonoBehaviour {
          {
              if (scriptToAccess.board[Atck_mv[i].z, Atck_mv[i].x].figure_name == "pawn")
              {
-                 if (cost_of_eaten < cost_pawn)
+                 if (cost_of_eaten <= cost_pawn)
                  {
                      cost_of_eaten = cost_pawn;
                      from_x = Atck_mv[i].started_x;
@@ -119,7 +124,7 @@ public class AI : MonoBehaviour {
 
              if (scriptToAccess.board[Atck_mv[i].z, Atck_mv[i].x].figure_name == "knight")
              {
-                 if (cost_of_eaten < cost_knight)
+                 if (cost_of_eaten <= cost_knight)
                  {
                      cost_of_eaten = cost_knight;
                      from_x = Atck_mv[i].started_x;
@@ -130,18 +135,6 @@ public class AI : MonoBehaviour {
                  }
              }
 
-             if (scriptToAccess.board[Atck_mv[i].z, Atck_mv[i].x].figure_name == "pawn")
-             {
-                 if (cost_of_eaten < cost_pawn)
-                 {
-                     cost_of_eaten = cost_pawn;
-                     from_x = Atck_mv[i].started_x;
-                     from_z = Atck_mv[i].started_z;
-
-                     to_x = Atck_mv[i].x;
-                     to_z = Atck_mv[i].z;
-                 }
-             }
 
              if (scriptToAccess.board[Atck_mv[i].z, Atck_mv[i].x].figure_name == "king")
              {
@@ -151,12 +144,14 @@ public class AI : MonoBehaviour {
 
                      to_x = Atck_mv[i].x;
                      to_z = Atck_mv[i].z;
+
+                     break;
                  
              }
 
              if (scriptToAccess.board[Atck_mv[i].z, Atck_mv[i].x].figure_name == "bishop")
              {
-                 if (cost_of_eaten < cost_bishop)
+                 if (cost_of_eaten <= cost_bishop)
                  {
                      cost_of_eaten = cost_bishop;
                      from_x = Atck_mv[i].started_x;
@@ -169,7 +164,7 @@ public class AI : MonoBehaviour {
 
              if (scriptToAccess.board[Atck_mv[i].z, Atck_mv[i].x].figure_name == "queen")
              {
-                 if (cost_of_eaten < queen)
+                 if (cost_of_eaten <= queen)
                  {
                      cost_of_eaten = queen;
                      from_x = Atck_mv[i].started_x;
@@ -182,7 +177,7 @@ public class AI : MonoBehaviour {
 
              if (scriptToAccess.board[Atck_mv[i].z, Atck_mv[i].x].figure_name == "rook")
              {
-                 if (cost_of_eaten < cost_rook)
+                 if (cost_of_eaten <= cost_rook)
                  {
                      cost_of_eaten = cost_rook;
                      from_x = Atck_mv[i].started_x;
@@ -192,79 +187,85 @@ public class AI : MonoBehaviour {
                      to_z = Atck_mv[i].z;
                  }
              }
-
-         //    MOVEForAI(from_z, from_x, to_z, to_x); // идем кушать
-
          }
+       Debug.Log("from and to");
+         Debug.Log(from_z);
+         Debug.Log(from_x);
+         Debug.Log(to_z);
+         Debug.Log(to_x);
+         Debug.Log("trying to eat");
+         MOVEForAI(from_z, from_x, to_z, to_x); // идем кушать
 
      }
      else  // иначе идем своей дорогой :)
      {
+
+         Debug.Log(All_mv.Count);
 
          for (int i = 0; i < All_mv.Count; i++)
          {
              started_cost_f = 0;
              started_cost_m = 0;
 
-             if (scriptToAccess.board[Atck_mv[i].started_z, Atck_mv[i].started_x].figure_name == "pawn")
+             if (scriptToAccess.board[Move_mv[i].started_z, Move_mv[i].started_x].figure_name == "pawn")
              {
-                 started_cost_m = cost_m_pawn + board[Atck_mv[i].z, Atck_mv[i].x];
-                 Debug.Log("cost");
-                 Debug.Log(started_cost_m);
+                 started_cost_m = cost_m_pawn + board[Move_mv[i].z, Move_mv[i].x];
+             //    Debug.Log("cost");
+           //      Debug.Log(started_cost_m);
 
              }
 
-             if (scriptToAccess.board[Atck_mv[i].started_z, Atck_mv[i].started_x].figure_name == "knight")
+             if (scriptToAccess.board[Move_mv[i].started_z, Move_mv[i].started_x].figure_name == "knight")
              {
-                 started_cost_m = cost_m_knight + board[Atck_mv[i].z, Atck_mv[i].x];
-                 Debug.Log("cost");
-                 Debug.Log(started_cost_m);
+                 started_cost_m = cost_m_knight + board[Move_mv[i].z, Move_mv[i].x];
+             //    Debug.Log("cost");
+           //      Debug.Log(started_cost_m);
              }
 
-             if (scriptToAccess.board[Atck_mv[i].started_z, Atck_mv[i].started_x].figure_name == "king")
+             if (scriptToAccess.board[Move_mv[i].started_z, Move_mv[i].started_x].figure_name == "king")
              {
-                 started_cost_m = m_king + board[Atck_mv[i].z, Atck_mv[i].x];
-                 Debug.Log("cost");
-                 Debug.Log(started_cost_m);
+                 started_cost_m = m_king + board[Move_mv[i].z, Move_mv[i].x];
+             //    Debug.Log("cost");
+            //     Debug.Log(started_cost_m);
              }
 
-             if (scriptToAccess.board[Atck_mv[i].started_z, Atck_mv[i].started_x].figure_name == "bishop")
+             if (scriptToAccess.board[Move_mv[i].started_z, Move_mv[i].started_x].figure_name == "bishop")
              {
-                 started_cost_m = cost_m_bishop + board[Atck_mv[i].z, Atck_mv[i].x];
-                 Debug.Log("cost");
-                 Debug.Log(started_cost_m);
+                 started_cost_m = cost_m_bishop + board[Move_mv[i].z, Move_mv[i].x];
+          //       Debug.Log("cost");
+          //       Debug.Log(started_cost_m);
              }
 
-             if (scriptToAccess.board[Atck_mv[i].started_z, Atck_mv[i].started_x].figure_name == "bishop")
+             if (scriptToAccess.board[Move_mv[i].started_z, Move_mv[i].started_x].figure_name == "bishop")
              {
-                 started_cost_m = cost_m_bishop + board[Atck_mv[i].z, Atck_mv[i].x];
-                 Debug.Log("cost");
-                 Debug.Log(started_cost_m);
+                 started_cost_m = cost_m_bishop + board[Move_mv[i].z, Move_mv[i].x];
+          //       Debug.Log("cost");
+           //      Debug.Log(started_cost_m);
              }
 
-             if (scriptToAccess.board[Atck_mv[i].started_z, Atck_mv[i].started_x].figure_name == "queen")
+             if (scriptToAccess.board[Move_mv[i].started_z, Move_mv[i].started_x].figure_name == "queen")
              {
-                 started_cost_m = m_queen + board[Atck_mv[i].z, Atck_mv[i].x];
-                 Debug.Log("cost");
-                 Debug.Log(started_cost_m);
+                 started_cost_m = m_queen + board[Move_mv[i].z, Move_mv[i].x];
+           //      Debug.Log("cost");
+           //      Debug.Log(started_cost_m);
              }
 
-             if (scriptToAccess.board[Atck_mv[i].started_z, Atck_mv[i].started_x].figure_name == "rook")
+             if (scriptToAccess.board[Move_mv[i].started_z, Move_mv[i].started_x].figure_name == "rook")
              {
-                 started_cost_m = m_queen + board[Atck_mv[i].z, Atck_mv[i].x];
-                 Debug.Log("cost");
-                 Debug.Log(started_cost_m);
+                 started_cost_m = m_queen + board[Move_mv[i].z, Move_mv[i].x];
+           //      Debug.Log("cost");
+          //       Debug.Log(started_cost_m);
              }
              
 
-             if (cost_m < started_cost_m)
+             if (cost_m <= started_cost_m)
              {
                  cost_m = started_cost_m;
-                 from_x = Atck_mv[i].started_x;
-                 from_z = Atck_mv[i].started_z;
+                 from_x = Move_mv[i].started_x;
+                 from_z = Move_mv[i].started_z;
 
-                 to_x = Atck_mv[i].x;
-                 to_z = Atck_mv[i].z;
+                 to_x = Move_mv[i].x;
+                 to_z = Move_mv[i].z;
 
              }
          }
@@ -274,12 +275,37 @@ public class AI : MonoBehaviour {
          Debug.Log(to_z);
          Debug.Log(to_x);
 
-         from_z = 6;
-         from_x = 0;
-         to_z = 5;
-         to_x = 0;
 
-       //  MOVEForAI(from_z, from_x, to_z, to_x);
+         Debug.Log("trying to move");
+         if (from_z == 0 & from_x == 0 & to_z == 0 & to_x == 0)
+         {
+             Debug.Log("cant do this bro");
+              cost_of_eaten = 0;
+             from_x = 0;
+             from_z = 0;
+             to_x = 0;
+              to_z = 0;
+
+               cost_f = 0;
+               started_cost_f = 0;
+               cost_m = 0;
+               started_cost_m = 0;
+
+               All_mv.Clear();
+               P_All_mv.Clear();
+               Atck_mv.Clear();
+               Move_mv.Clear();
+
+               StartThinking();
+
+
+         }
+         else
+         {
+             MOVEForAI(from_z, from_x, to_z, to_x);
+
+         }
+         
 
      }
  }
@@ -291,22 +317,22 @@ public class AI : MonoBehaviour {
 
       if (scriptToAccess.moves < 5)
       {
-          for (int i = 0; i < 7; i++)
+          for (int i = 0; i < 8; i++)
           {
               board[7, i] = 10;
               board[6, i] = 10;
               board[5, i] = 20;
-              board[4, i] = 30;
-              board[3, i] = 40;
-              board[2, i] = 30;
-              board[1, i] = 20;
+              board[4, i] = 25;
+              board[3, i] = 10;
+              board[2, i] = 10;
+              board[1, i] = 10;
               board[0, i] = 10;
           }
       }
 
       if (scriptToAccess.moves > 5)
       {
-          for (int i = 0; i < 7; i++)
+          for (int i = 0; i < 8; i++)
           {
               board[7, i] = 10;
               board[6, i] = 10;
@@ -321,230 +347,241 @@ public class AI : MonoBehaviour {
       Debug.Log("settled");
  }
  public void checkForMovement()         // собирает все возможные ходы
-    {
-        Core scriptToAccess = Core_object.GetComponent<Core>();
+ {
+     Core scriptToAccess = Core_object.GetComponent<Core>();
 
-       for (int i = 0; i < 7; i++) 
-        {
-            for (int j = 0; j < 7; j++)
-            {
-
-
-                if (scriptToAccess.board[i, j].figure_name == "bishop")
-                {
-                    if (scriptToAccess.board[i, j].colors_of_figure == 1)
-                    {
-
-                        bishop b = new bishop();
-                        b.colors_of_figure = 1;
-                        b.PossibleMoves(i, j);
-                        for (int x = 0; x < b.All_moves.Count; x++)
-                        {
-                           Debug.Log("bishops");
-
-                            All_mv.Add(b.All_moves[x]);
-
-                        }
-                    }
-                    else   // иначе мы смотрим ход для игрока
-                    {
-                        bishop b = new bishop();
-                        b.colors_of_figure = 0;
-                        b.PossibleMoves(i, j);
-                        for (int x = 0; x < b.All_moves.Count; x++)
-                        {
-                        //    Debug.Log("bishops");
-
-                            P_All_mv.Add(b.All_moves[x]);
-
-                        }
-                    }
-                }
-
-                if (scriptToAccess.board[i, j].figure_name == "king")
-                {
-                    if (scriptToAccess.board[i, j].colors_of_figure == 1)
-                    {
-
-                        king b = new king();
-                        b.colors_of_figure = 1;
-                        b.PossibleMoves(i, j);
-                        for (int x = 0; x < b.P_Moves.Count; x++)
-                        {
-                           Debug.Log("king");
-
-                            All_mv.Add(b.P_Moves[x]);
-
-                        }
-                    }
-                    else   // иначе мы смотрим ход для игрока
-                    {
-                        king b = new king();
-                        b.colors_of_figure = 1;
-                        b.PossibleMoves(i, j);
-                        for (int x = 0; x < b.P_Moves.Count; x++)
-                        {
-                           
-
-                            P_All_mv.Add(b.P_Moves[x]);
-
-                        }
-                    }
-                }
-
-                if (scriptToAccess.board[i, j].figure_name == "knight")
-                {
-                    if (scriptToAccess.board[i, j].colors_of_figure == 1)
-                    {
-
-                        knight b = new knight();
-                        b.colors_of_figure = 1;
-                        b.PossibleMoves(i, j);
-                        for (int x = 0; x < b.P_Moves.Count; x++)
-                        {
-                            Debug.Log("knight");
-
-                            All_mv.Add(b.P_Moves[x]);
-
-                        }
-                    }
-                    else   // иначе мы смотрим ход для игрока
-                    {
-                        knight b = new knight();
-                        b.colors_of_figure = 1;
-                        b.PossibleMoves(i, j);
-                        for (int x = 0; x < b.P_Moves.Count; x++)
-                        {
-                      //      Debug.Log("knight");
-
-                            P_All_mv.Add(b.P_Moves[x]);
-
-                        }
-                    }
-                }
-
-                if (scriptToAccess.board[6, 0].figure_name == "pawn")
-                {
-                    if (scriptToAccess.board[i, j].colors_of_figure == 1)
-                    {
-
-                        pawn b = new pawn();
-                        b.colors_of_figure = 1;
-                        b.PossibleMoves(6, 0);
-                        for (int x = 0; x < b.P_Moves.Count; x++)
-                        {
-                            Debug.Log("pawn");
-                            All_mv.Add(b.P_Moves[x]);
-
-                        }
-
-                        for (int x = 0; x < b.Attack_Moves.Count; x++)
-                        {
-                            Debug.Log("pawn");
-                            All_mv.Add(b.Attack_Moves[x]);
-
-                        }
-
-                    }
-                    else
-                    {
-                        pawn b = new pawn();
-                        b.colors_of_figure = 0;
-                        b.PossibleMoves(6, 0);
-                        for (int x = 0; x < b.P_Moves.Count; x++)
-                        {
-
-                            P_All_mv.Add(b.P_Moves[x]);
+     for (int i = 0; i < 8; i++)
+     {
+         for (int j = 0; j < 8; j++)
+         {
 
 
-                        }
+             if (scriptToAccess.board[i, j].figure_name == "bishop")
+             {
+                 if (scriptToAccess.board[i, j].colors_of_figure == 1)
+                 {
 
-                        for (int x = 0; x < b.Attack_Moves.Count; x++)
-                        {
+                     bishop b = new bishop();
+                     b.colors_of_figure = 1;
+                     b.PossibleMoves(i, j);
+                     for (int x = 0; x < b.All_moves.Count; x++)
+                     {
+                                Debug.Log("bishops");
 
-                            P_All_mv.Add(b.Attack_Moves[x]);
-
-                        }
+                         All_mv.Add(b.All_moves[x]);
 
 
-                    }
-                    
-                }
+                     }
+                 }
+                 else   // иначе мы смотрим ход для игрока
+                 {
+                     bishop b = new bishop();
+                     b.colors_of_figure = 0;
+                     b.PossibleMoves(i, j);
+                     for (int x = 0; x < b.All_moves.Count; x++)
+                     {
+                         //    Debug.Log("bishops");
 
-                if (scriptToAccess.board[i, j].figure_name == "queen")
-                {
-                    if (scriptToAccess.board[i, j].colors_of_figure == 1)
-                    {
+                         //       P_All_mv.Add(b.All_moves[x]);
 
-                        queen b = new queen();
-                        b.colors_of_figure = 1;
-                        b.PossibleMoves(i, j);
-                        for (int x = 0; x < b.All_moves.Count; x++)
-                        {
-                            Debug.Log("queen");
+                     }
+                 }
+             }
 
-                            All_mv.Add(b.All_moves[x]);
+             if (scriptToAccess.board[i, j].figure_name == "king")
+             {
+                 if (scriptToAccess.board[i, j].colors_of_figure == 1)
+                 {
 
-                        }
-                    }
-                    else   // иначе мы смотрим ход для игрока
-                    {
-                        queen b = new queen();
-                        b.colors_of_figure = 0;
-                        b.PossibleMoves(i, j);
-                        for (int x = 0; x < b.All_moves.Count; x++)
-                        {
-                     //       Debug.Log("queen");
+                     king b = new king();
+                     b.colors_of_figure = 1;
+                     b.PossibleMoves(i, j);
+                     for (int x = 0; x < b.P_Moves.Count; x++)
+                     {
+                                Debug.Log("king");
 
-                            P_All_mv.Add(b.All_moves[x]);
+                         All_mv.Add(b.P_Moves[x]);
 
-                        }
-                    }
-                }
-                
+                     }
+                 }
+                 else   // иначе мы смотрим ход для игрока
+                 {
+                     king b = new king();
+                     b.colors_of_figure = 1;
+                     b.PossibleMoves(i, j);
+                     for (int x = 0; x < b.P_Moves.Count; x++)
+                     {
 
-                if (scriptToAccess.board[i, j].figure_name == "rook")
-                {
-                    if (scriptToAccess.board[i, j].colors_of_figure == 1)
-                    {
 
-                        rook b = new rook();
-                        b.colors_of_figure = 1;
-                        b.PossibleMoves(i, j);
-                        for (int x = 0; x < b.All_moves.Count; x++)
-                        {
-                            Debug.Log("rook");
+                         //        P_All_mv.Add(b.P_Moves[x]);
 
-                            All_mv.Add(b.All_moves[x]);
+                     }
+                 }
+             }
 
-                        }
-                    }
-                    else   // иначе мы смотрим ход для игрока
-                    {
-                        rook b = new rook();
-                        b.colors_of_figure = 1;
-                        b.PossibleMoves(i, j);
-                        for (int x = 0; x < b.All_moves.Count; x++)
-                        {
-                     //       Debug.Log("rook");
+             if (scriptToAccess.board[i, j].figure_name == "knight")
+             {
+                 if (scriptToAccess.board[i, j].colors_of_figure == 1)
+                 {
 
-                            P_All_mv.Add(b.All_moves[x]);
+                     knight b = new knight();
+                     b.colors_of_figure = 1;
+                     b.PossibleMoves(i, j);
+                     for (int x = 0; x < b.P_Moves.Count; x++)
+                     {
+                                 Debug.Log("knight");
+                                 Debug.Log(b.P_Moves[x].z);
+                                 Debug.Log(b.P_Moves[x].x);
 
-                        }
-                    }
-                }
-            }
-       }
-    }
+                         All_mv.Add(b.P_Moves[x]);
+
+                       //  Debug.Log(All_mv.Count);
+                         //  Debug.Log(scriptToAccess.board[0, 6].colors_of_figure);
+                     }
+                 }
+                 else
+                 {
+                     knight b = new knight();
+                     b.colors_of_figure = 0;
+                     b.PossibleMoves(i, j);
+                     for (int x = 0; x < b.P_Moves.Count; x++)
+                     {
+                          //       Debug.Log("knight");
+                    //         P_All_mv.Add(b.P_Moves[x]);
+                    //     //  Debug.Log(scriptToAccess.board[0, 6].colors_of_figure);
+                     }
+
+                 }
+             }
+
+             if (scriptToAccess.board[i, j].figure_name == "pawn")
+             {
+                 if (scriptToAccess.board[i, j].colors_of_figure == 1)
+                 {
+
+                     pawn b = new pawn();
+                     b.colors_of_figure = 1;
+                     b.PossibleMovesAI(i, j);
+                     for (int x = 0; x < b.P_Moves.Count; x++)
+                     {
+                           Debug.Log("pawn");
+                         All_mv.Add(b.P_Moves[x]);
+
+                     }
+
+                     for (int x = 0; x < b.Attack_Moves.Count; x++)
+                     {
+                           Debug.Log("pawn");
+                         All_mv.Add(b.Attack_Moves[x]);
+
+                     }
+
+                 }
+                 else
+                 {
+                     pawn b = new pawn();
+                     b.colors_of_figure = 0;
+                     b.PossibleMoves(i, j);
+                     for (int x = 0; x < b.P_Moves.Count; x++)
+                     {
+
+                     //    P_All_mv.Add(b.P_Moves[x]);
+
+
+                     }
+
+                     for (int x = 0; x < b.Attack_Moves.Count; x++)
+                     {
+
+                    //     P_All_mv.Add(b.Attack_Moves[x]);
+
+                     }
+
+
+                 }
+
+             }
+
+             if (scriptToAccess.board[i, j].figure_name == "queen")
+             {
+                 if (scriptToAccess.board[i, j].colors_of_figure == 1)
+                 {
+
+                     queen b = new queen();
+                     b.colors_of_figure = 1;
+                     b.PossibleMoves(i, j);
+                     for (int x = 0; x < b.All_moves.Count; x++)
+                     {
+                                 Debug.Log("queen");
+
+                         All_mv.Add(b.All_moves[x]);
+
+                     }
+                 }
+                 else   // иначе мы смотрим ход для игрока
+                 {
+                     queen b = new queen();
+                     b.colors_of_figure = 0;
+                     b.PossibleMoves(i, j);
+                     for (int x = 0; x < b.All_moves.Count; x++)
+                     {
+                         //       Debug.Log("queen");
+
+                     //    P_All_mv.Add(b.All_moves[x]);
+
+                     }
+                 }
+             }
+
+
+             if (scriptToAccess.board[i, j].figure_name == "rook")
+             {
+                 if (scriptToAccess.board[i, j].colors_of_figure == 1)
+                 {
+
+                     rook b = new rook();
+                     b.colors_of_figure = 1;
+                     b.PossibleMoves(i, j);
+                     for (int x = 0; x < b.All_moves.Count; x++)
+                     {
+                                   Debug.Log("rook");
+
+                         All_mv.Add(b.All_moves[x]);
+
+                     }
+                 }
+                 else   // иначе мы смотрим ход для игрока
+                 {
+                     rook b = new rook();
+                     b.colors_of_figure = 0;
+                     b.PossibleMoves(i, j);
+                     for (int x = 0; x < b.All_moves.Count; x++)
+                     {
+                         //       Debug.Log("rook");
+
+                      //   P_All_mv.Add(b.All_moves[x]);
+
+                     }
+                 }
+             }
+         }
+     }
+ }
+ 
 
  public void MOVEForAI(int z, int x, int second_z, int second_x)    // z x координаты первой фигуры, s_z s_x координаты 2ой фигуры
  {
+     All_mv.Clear();
+     P_All_mv.Clear();
+     Atck_mv.Clear();
+     Move_mv.Clear();
+
 
      Debug.Log("MoveForAI");
-     Debug.Log(z);
-     Debug.Log(x);
-     Debug.Log(second_z);
-     Debug.Log(second_x);
+    // Debug.Log(z);
+   //  Debug.Log(x);
+    // Debug.Log(second_z);
+   //  Debug.Log(second_x);
      Core scriptToAccess = Core_object.GetComponent<Core>();
 
      if (scriptToAccess.State == 1)    // идет нужная логика где мы выбираем потенциально аенный ход и двигаем фигурки
@@ -563,6 +600,8 @@ public class AI : MonoBehaviour {
          }
          
          scriptToAccess.State = 0;  // 1 - ход АИ 0 - Ход Игрока
+
+         Debug.Log(All_mv.Count);
 
      }
  }

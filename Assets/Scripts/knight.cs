@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public class knight : figure
 {   //конь
 
-
     public string name = "knight";
     public bool ischeck = false;
 
@@ -21,16 +20,16 @@ public class knight : figure
         Core scriptToAccess = Core_object.GetComponent<Core>();
 
         int myColor = 0;
+
         if (scriptToAccess.State == 1)
         {
+
             myColor = 1;
         }
         else
         {
             myColor = 0;
         }
-
-
 
         int for_z, for_x;
         for_z = z;
@@ -175,14 +174,17 @@ public class knight : figure
         for (int i = 0; i < P_Moves.Count; i++)
         {
             P_Moves[i].name = "knight";
-            Debug.Log(P_Moves[i].z);
-            Debug.Log(P_Moves[i].x);
+           
 
             P_Moves[i].started_z = for_z;
             P_Moves[i].started_x = for_x;
+         //   Debug.Log(P_Moves[i].started_z);
+           // Debug.Log(P_Moves[i].started_x);
+
+
 
         }
 
     }
-
+    
 }

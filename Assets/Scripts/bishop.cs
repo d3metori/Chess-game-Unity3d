@@ -27,58 +27,47 @@ public class bishop : figure
         Core_object = GameObject.Find("Core");
         Core scriptToAccess = Core_object.GetComponent<Core>();
 
-
         int myColor = 0;
-        if (scriptToAccess.State == 1)
-        {
-            myColor = 0;
-        }
-        else
+      /*  if (scriptToAccess.State == 1)
         {
             myColor = 1;
         }
+        else
+        {
+            myColor = 0;
+        }*/
 
-        int for_z, for_x;
+        int for_z;
+        int for_x;
+
         for_z = z;
         for_x = x;
 
-        
-
-        for (int i = 1; i < 8; i++)    // Вправо+Вверх
+        for (int i = 1; i < 8; i++)    // RightUp
         {
             move mv = new move();
             mv.x = x + i;
             mv.z = z + i;
             if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
+
+
                 if (Can_add)
                 {
                     if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                     {
                         Can_add = false;
-                        if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != myColor)
                         {   // добавляем ели цвет не наш
-                        P_Moves_RightUp.Add(mv);
-                  //      Debug.Log(mv.z);
-                  //      Debug.Log(mv.x);
-                 //       Debug.Log("bishop");
-                        break;
+                            P_Moves_RightUp.Add(mv);
                         }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
-                    {
-                        P_Moves_RightUp.Add(mv);
-                        //    Debug.Log(mv.z);
-                        //    Debug.Log(mv.x);
-                        //    Debug.Log("bishop");
-                    }
+                    P_Moves_RightUp.Add(mv);
                 }
-                    
-                
             }
         }
 
@@ -87,7 +76,7 @@ public class bishop : figure
 
         Can_add = true;
 
-        for (int i = 1; i < 8; i++)    // Вправо+Вниз
+        for (int i = 1; i < 8; i++)    // RightDown
         {
             move mv = new move();
             mv.x = x + i;
@@ -95,33 +84,23 @@ public class bishop : figure
             if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
 
+
                 if (Can_add)
                 {
                     if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                     {
                         Can_add = false;
-                        if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != myColor)
                         {   // добавляем ели цвет не наш
                             P_Moves_RightDown.Add(mv);
-                  //          Debug.Log(mv.z);
-                  //          Debug.Log(mv.x);
-                  //          Debug.Log("bishop");
-                            break;
                         }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
-                    {
-                        //      Debug.Log(mv.z);
-                        //      Debug.Log(mv.x);
-                        //      Debug.Log("bishop");
-                        P_Moves_RightDown.Add(mv);
-                    }
+                    P_Moves_RightDown.Add(mv);
                 }
-
             }
         }
 
@@ -130,7 +109,7 @@ public class bishop : figure
 
         Can_add = true;
 
-        for (int i = 1; i < 8; i++)    // Влево+Вниз
+        for (int i = 1; i < 8; i++)    // LeftDown
         {
             move mv = new move();
             mv.x = x - i;
@@ -138,31 +117,22 @@ public class bishop : figure
             if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
 
+
                 if (Can_add)
                 {
                     if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                     {
                         Can_add = false;
-                        if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != myColor)
                         {   // добавляем ели цвет не наш
                             P_Moves_LeftDown.Add(mv);
-                //            Debug.Log(mv.z);
-                //            Debug.Log(mv.x);
-                //            Debug.Log("bishop");
-                            break;
                         }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
-                    {
-                        //     Debug.Log(mv.z);
-                        //     Debug.Log(mv.x);
-                        //     Debug.Log("bishop");
-                        P_Moves_LeftDown.Add(mv);
-                    }
+                    P_Moves_LeftDown.Add(mv);
                 }
             }
         }
@@ -172,42 +142,35 @@ public class bishop : figure
 
         Can_add = true;
 
-        for (int i = 1; i < 8; i++)    // Влево+Вверх
+        for (int i = 1; i < 8; i++)    // LefUp
         {
             move mv = new move();
             mv.x = x - i;
             mv.z = z + i;
             if (mv.x >= 0 & mv.x < 8 & mv.z >= 0 & mv.z < 8)    // строчка для ограничения хода в границах 8x8 
             {
+
+
                 if (Can_add)
                 {
                     if (scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
                     {
                         Can_add = false;
-                        if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor & scriptToAccess.board[mv.z, mv.x].figure_name != "empty")
+                        if (scriptToAccess.board[scriptToAccess.second_z, scriptToAccess.second_x].colors_of_figure != myColor)
                         {   // добавляем ели цвет не наш
                             P_Moves_LeftUp.Add(mv);
-                 //           Debug.Log(mv.z);
-                 //           Debug.Log(mv.x);
-                 //           Debug.Log("bishop");
-                            break;
                         }
                     }
                 }
 
                 if (Can_add)
                 {
-                    if (scriptToAccess.board[mv.z, mv.x].colors_of_figure != myColor)
-                    {
-                        //     Debug.Log(mv.z);
-                        //    Debug.Log(mv.x);
-                        //     Debug.Log("bishop");
-                        P_Moves_LeftUp.Add(mv);
-                    }
+                    P_Moves_LeftUp.Add(mv);
                 }
             }
         }
 
+       
         z = for_z;
         x = for_x;
 
